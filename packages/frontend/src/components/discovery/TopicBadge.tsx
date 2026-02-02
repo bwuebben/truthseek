@@ -28,8 +28,8 @@ export function TopicBadge({
     'inline-flex items-center gap-1.5 rounded-full font-medium transition-all border',
     sizeClasses[size],
     active
-      ? 'bg-accent-cyan/20 text-accent-cyan border-accent-cyan/30'
-      : 'bg-dark-700 text-gray-400 border-dark-600 hover:border-accent-cyan/30 hover:text-accent-cyan'
+      ? 'bg-accent-coral/10 text-accent-coral border-accent-coral/30'
+      : 'bg-dark-700 text-text-secondary border-subtle hover:border-accent-coral/30 hover:text-accent-coral'
   );
 
   if (onClick) {
@@ -37,7 +37,7 @@ export function TopicBadge({
       <button onClick={onClick} className={baseClasses}>
         <span>{tag}</span>
         {count !== undefined && (
-          <span className={active ? 'text-accent-cyan/70' : 'text-gray-500'}>
+          <span className={active ? 'text-accent-coral/70' : 'text-text-muted'}>
             {count}
           </span>
         )}
@@ -52,7 +52,7 @@ export function TopicBadge({
     >
       <span>{tag}</span>
       {count !== undefined && (
-        <span className={active ? 'text-accent-cyan/70' : 'text-gray-500'}>
+        <span className={active ? 'text-accent-coral/70' : 'text-text-muted'}>
           {count}
         </span>
       )}

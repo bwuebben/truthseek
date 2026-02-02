@@ -42,12 +42,12 @@ export function PlatformStatsBar() {
 
   if (isLoadingStats && !platformStats) {
     return (
-      <div className="bg-dark-800 border border-dark-600 rounded-lg px-4 py-3">
+      <div className="bg-dark-800 border border-subtle rounded-lg px-4 py-3">
         <div className="flex items-center justify-center gap-8">
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="text-center">
-              <div className="h-5 w-12 bg-dark-600 rounded animate-pulse mx-auto mb-1" />
-              <div className="h-3 w-16 bg-dark-600 rounded animate-pulse mx-auto" />
+              <div className="h-5 w-12 bg-dark-700 rounded animate-pulse mx-auto mb-1" />
+              <div className="h-3 w-16 bg-dark-700 rounded animate-pulse mx-auto" />
             </div>
           ))}
         </div>
@@ -83,20 +83,20 @@ export function PlatformStatsBar() {
   ];
 
   return (
-    <div className="bg-dark-800 border border-dark-600 rounded-lg px-4 py-3">
+    <div className="bg-dark-800 border border-subtle rounded-lg px-4 py-3">
       <div className="flex items-center justify-center gap-8 flex-wrap text-sm">
         {stats.map((stat, index) => (
           <div key={stat.label} className="flex items-center gap-2">
-            <span className="font-semibold text-accent-cyan">
+            <span className="font-semibold text-accent-coral">
               {hasLoaded ? (
                 <AnimatedNumber value={stat.value} duration={800 + index * 100} />
               ) : (
                 stat.value.toLocaleString()
               )}
             </span>
-            <span className="text-gray-500">{stat.label}</span>
+            <span className="text-text-muted">{stat.label}</span>
             {index < stats.length - 1 && (
-              <span className="text-dark-500 ml-4">·</span>
+              <span className="text-dark-600 ml-4">·</span>
             )}
           </div>
         ))}

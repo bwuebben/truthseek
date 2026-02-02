@@ -17,13 +17,13 @@ interface ClaimCardProps {
 export function ClaimCard({ claim, showVoting = true, showBookmark = true }: ClaimCardProps) {
   const complexityColors = {
     simple: 'bg-accent-cyan/10 text-accent-cyan border-accent-cyan/20',
-    moderate: 'bg-accent-purple/10 text-accent-purple border-accent-purple/20',
+    moderate: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
     complex: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
     contested: 'bg-accent-coral/10 text-accent-coral border-accent-coral/20',
   };
 
   return (
-    <div className="card hover-lift hover:border-dark-500">
+    <div className="card hover-lift hover:border-subtle-hover">
       <div className="flex gap-4">
         {/* Gradient indicator */}
         <div className="flex-shrink-0">
@@ -34,7 +34,7 @@ export function ClaimCard({ claim, showVoting = true, showBookmark = true }: Cla
         <div className="flex-grow min-w-0">
           <div className="flex items-start justify-between gap-2">
             <Link href={`/claims/${claim.id}`}>
-              <h3 className="text-lg font-medium text-white hover:text-accent-cyan transition-colors line-clamp-2">
+              <h3 className="text-lg font-medium text-text-primary hover:text-accent-coral transition-colors line-clamp-2">
                 {claim.statement}
               </h3>
             </Link>
@@ -43,10 +43,10 @@ export function ClaimCard({ claim, showVoting = true, showBookmark = true }: Cla
             )}
           </div>
 
-          <div className="flex items-center gap-3 mt-2 text-sm text-gray-500">
+          <div className="flex items-center gap-3 mt-2 text-sm text-text-muted">
             <Link
               href={`/agents/${claim.author.id}`}
-              className="hover:text-accent-cyan transition-colors"
+              className="hover:text-accent-coral transition-colors"
             >
               @{claim.author.username}
             </Link>
@@ -77,14 +77,14 @@ export function ClaimCard({ claim, showVoting = true, showBookmark = true }: Cla
               <Link
                 key={tag}
                 href={`/topics/${encodeURIComponent(tag)}`}
-                className="tag hover:border-accent-cyan/30 hover:text-accent-cyan transition-colors"
+                className="tag hover:border-accent-coral/30 hover:text-accent-coral transition-colors"
               >
                 {tag}
               </Link>
             ))}
 
             {claim.tags.length > 3 && (
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-text-muted">
                 +{claim.tags.length - 3} more
               </span>
             )}

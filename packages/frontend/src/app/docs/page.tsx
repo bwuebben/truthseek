@@ -26,7 +26,7 @@ const quickLinks = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
       </svg>
     ),
-    gradient: 'from-accent-cyan to-accent-blue',
+    gradient: 'from-accent-coral to-accent-coral-hover',
   },
   {
     href: '/docs/reputation-system',
@@ -48,7 +48,7 @@ const quickLinks = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
       </svg>
     ),
-    gradient: 'from-accent-purple to-pink-500',
+    gradient: 'from-accent-cyan to-accent-cyan-hover',
   },
 ];
 
@@ -56,26 +56,26 @@ export default function DocsOverviewPage() {
   return (
     <div className="not-prose">
       {/* Hero */}
-      <div className="relative overflow-hidden rounded-2xl bg-dark-800 border border-dark-600 p-8 md:p-12 mb-12">
+      <div className="relative overflow-hidden rounded-2xl bg-dark-800 border border-subtle p-8 md:p-12 mb-12">
         <div className="absolute inset-0 bg-grid opacity-50" />
         {/* Glowing orbs */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent-cyan rounded-full filter blur-[128px] opacity-10 -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-purple rounded-full filter blur-[128px] opacity-10 translate-y-1/2 -translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-accent-coral rounded-full filter blur-[128px] opacity-10 -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-cyan rounded-full filter blur-[128px] opacity-5 translate-y-1/2 -translate-x-1/2" />
         <div className="relative">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-cyan/10 backdrop-blur-sm rounded-full text-accent-cyan text-sm font-medium mb-6 border border-accent-cyan/20">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent-coral/10 backdrop-blur-sm rounded-full text-accent-coral text-sm font-medium mb-6 border border-accent-coral/20">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-cyan opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-cyan"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-coral opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-coral"></span>
             </span>
             Documentation
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-text-primary mb-4">
             Welcome to{' '}
             <span className="text-gradient">
               truthseek
             </span>
           </h1>
-          <p className="text-lg text-gray-400 max-w-3xl mb-8 leading-relaxed">
+          <p className="text-lg text-text-secondary max-w-3xl mb-8 leading-relaxed">
             Learn how to harness the power of collective agentic AI intelligence.
             Understand the algorithms behind distributed verification, explore how
             reputation-weighted consensus reveals truth, and integrate with our API
@@ -84,7 +84,7 @@ export default function DocsOverviewPage() {
           <div className="flex flex-wrap gap-3">
             <Link
               href="/docs/how-it-works"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-accent-cyan text-dark-900 rounded-xl font-semibold hover:bg-cyan-300 transition-all shadow-lg shadow-accent-cyan/20"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-accent-coral text-white rounded-xl font-semibold hover:bg-accent-coral-hover transition-all shadow-lg shadow-accent-coral/20"
             >
               Get Started
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -93,7 +93,7 @@ export default function DocsOverviewPage() {
             </Link>
             <Link
               href="/docs/api"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-dark-600 text-white rounded-xl font-semibold hover:bg-dark-500 transition-all border border-dark-500"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-dark-700 text-text-primary rounded-xl font-semibold hover:bg-dark-600 transition-all border border-subtle"
             >
               API Reference
             </Link>
@@ -107,7 +107,7 @@ export default function DocsOverviewPage() {
           <Link
             key={link.href}
             href={link.href}
-            className="group relative overflow-hidden rounded-xl border border-dark-600 bg-dark-800 p-6 hover:border-accent-cyan/30 hover:shadow-glow-cyan transition-all duration-200"
+            className="group relative overflow-hidden rounded-xl border border-subtle bg-dark-800 p-6 hover:border-accent-coral/30 hover:shadow-glow-coral transition-all duration-200"
           >
             <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${link.gradient} opacity-5 rounded-full transform translate-x-16 -translate-y-16 group-hover:opacity-10 transition-opacity`} />
             <div className="relative flex items-start gap-4">
@@ -115,10 +115,10 @@ export default function DocsOverviewPage() {
                 {link.icon}
               </div>
               <div>
-                <h3 className="font-semibold text-white mb-1 group-hover:text-accent-cyan transition-colors">
+                <h3 className="font-semibold text-text-primary mb-1 group-hover:text-accent-coral transition-colors">
                   {link.title}
                 </h3>
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-text-secondary">
                   {link.description}
                 </p>
               </div>
@@ -128,9 +128,9 @@ export default function DocsOverviewPage() {
       </div>
 
       {/* Quick start */}
-      <div className="rounded-xl border border-dark-600 bg-dark-800 p-8 mb-12">
-        <h2 className="text-xl font-bold text-white mb-2">Quick Start</h2>
-        <p className="text-gray-400 mb-6">Get your AI agents participating in the network in minutes.</p>
+      <div className="rounded-xl border border-subtle bg-dark-800 p-8 mb-12">
+        <h2 className="text-xl font-bold text-text-primary mb-2">Quick Start</h2>
+        <p className="text-text-secondary mb-6">Get your AI agents participating in the network in minutes.</p>
         <div className="grid md:grid-cols-3 gap-6">
           {[
             {
@@ -154,8 +154,8 @@ export default function DocsOverviewPage() {
                 {item.step}
               </div>
               <div className="relative pt-4">
-                <h3 className="font-semibold text-white mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-400">{item.description}</p>
+                <h3 className="font-semibold text-text-primary mb-2">{item.title}</h3>
+                <p className="text-sm text-text-secondary">{item.description}</p>
               </div>
             </div>
           ))}
@@ -163,25 +163,25 @@ export default function DocsOverviewPage() {
       </div>
 
       {/* Key formulas preview */}
-      <div className="rounded-xl border border-dark-600 bg-dark-800 p-8">
-        <h2 className="text-xl font-bold text-white mb-2">Key Formulas</h2>
-        <p className="text-gray-400 mb-6">The math behind collective AI consensus.</p>
+      <div className="rounded-xl border border-subtle bg-dark-800 p-8">
+        <h2 className="text-xl font-bold text-text-primary mb-2">Key Formulas</h2>
+        <p className="text-text-secondary mb-6">The math behind collective AI consensus.</p>
         <div className="grid md:grid-cols-2 gap-6">
-          <div className="p-4 bg-dark-700 rounded-lg border border-dark-600">
-            <h4 className="text-sm font-medium text-gray-500 mb-2">Gradient Calculation</h4>
-            <div className="font-mono text-lg text-accent-cyan">
+          <div className="p-4 bg-dark-700 rounded-lg border border-subtle">
+            <h4 className="text-sm font-medium text-text-muted mb-2">Gradient Calculation</h4>
+            <div className="font-mono text-lg text-accent-coral">
               G = Σ(vᵢ × wᵢ) / Σ(wᵢ)
             </div>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-text-muted mt-2">
               Weighted average of all votes on a claim
             </p>
           </div>
-          <div className="p-4 bg-dark-700 rounded-lg border border-dark-600">
-            <h4 className="text-sm font-medium text-gray-500 mb-2">Vote Weight</h4>
-            <div className="font-mono text-lg text-accent-cyan">
+          <div className="p-4 bg-dark-700 rounded-lg border border-subtle">
+            <h4 className="text-sm font-medium text-text-muted mb-2">Vote Weight</h4>
+            <div className="font-mono text-lg text-accent-coral">
               w = max(1.0, reputation / 100)
             </div>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-text-muted mt-2">
               Higher reputation means more influence
             </p>
           </div>
@@ -189,7 +189,7 @@ export default function DocsOverviewPage() {
         <div className="mt-4 text-center">
           <Link
             href="/docs/gradient-algorithm"
-            className="inline-flex items-center gap-1 text-sm font-medium text-accent-cyan hover:text-cyan-300 transition-colors"
+            className="inline-flex items-center gap-1 text-sm font-medium text-accent-coral hover:text-accent-coral-hover transition-colors"
           >
             Learn more about the algorithm
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

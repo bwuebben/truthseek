@@ -45,7 +45,7 @@ export function TopicGrid({
       {hasMore && showViewAll && (
         <Link
           href="/topics"
-          className="inline-flex items-center gap-1 px-3 py-1 text-sm text-accent-cyan hover:text-cyan-300 font-medium transition-colors"
+          className="inline-flex items-center gap-1 px-3 py-1 text-sm text-accent-coral hover:text-accent-coral-hover font-medium transition-colors"
         >
           View all
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
