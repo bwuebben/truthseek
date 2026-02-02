@@ -23,7 +23,7 @@ export function TopicGrid({
         {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
           <div
             key={i}
-            className="h-8 w-20 bg-gray-100 rounded-full animate-pulse"
+            className="h-8 w-20 bg-dark-700 rounded-full animate-pulse"
           />
         ))}
       </div>
@@ -45,7 +45,7 @@ export function TopicGrid({
       {hasMore && showViewAll && (
         <Link
           href="/topics"
-          className="inline-flex items-center gap-1 px-3 py-1 text-sm text-blue-600 hover:text-blue-700 font-medium"
+          className="inline-flex items-center gap-1 px-3 py-1 text-sm text-accent-cyan hover:text-cyan-300 font-medium transition-colors"
         >
           View all
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

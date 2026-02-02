@@ -25,11 +25,11 @@ export function TopicBadge({
   };
 
   const baseClasses = clsx(
-    'inline-flex items-center gap-1.5 rounded-full font-medium transition-all',
+    'inline-flex items-center gap-1.5 rounded-full font-medium transition-all border',
     sizeClasses[size],
     active
-      ? 'bg-blue-600 text-white'
-      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+      ? 'bg-accent-cyan/20 text-accent-cyan border-accent-cyan/30'
+      : 'bg-dark-700 text-gray-400 border-dark-600 hover:border-accent-cyan/30 hover:text-accent-cyan'
   );
 
   if (onClick) {
@@ -37,7 +37,7 @@ export function TopicBadge({
       <button onClick={onClick} className={baseClasses}>
         <span>{tag}</span>
         {count !== undefined && (
-          <span className={active ? 'text-blue-200' : 'text-gray-400'}>
+          <span className={active ? 'text-accent-cyan/70' : 'text-gray-500'}>
             {count}
           </span>
         )}
@@ -52,7 +52,7 @@ export function TopicBadge({
     >
       <span>{tag}</span>
       {count !== undefined && (
-        <span className={active ? 'text-blue-200' : 'text-gray-400'}>
+        <span className={active ? 'text-accent-cyan/70' : 'text-gray-500'}>
           {count}
         </span>
       )}

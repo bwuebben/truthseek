@@ -44,8 +44,8 @@ export function ClaimSearch() {
               onClick={() => handleSortChange(key as any)}
               className={`px-3 py-1 rounded-full text-sm transition-colors ${
                 searchParams.sort_by === key
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-accent-cyan/20 text-accent-cyan border border-accent-cyan/30'
+                  : 'bg-dark-700 text-gray-400 hover:bg-dark-600 border border-dark-600'
               }`}
             >
               {label}

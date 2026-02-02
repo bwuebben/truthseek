@@ -27,10 +27,10 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-dark-900 text-gray-100`}>
         <ErrorBoundary>
           <Providers>
-            <div className="min-h-screen bg-gray-50">
+            <div className="min-h-screen bg-dark-900 bg-grid">
               <Header />
               <main className="container mx-auto px-4 py-8">
                 {children}

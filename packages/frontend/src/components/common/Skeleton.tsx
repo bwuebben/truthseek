@@ -10,7 +10,7 @@ export function Skeleton({ className }: SkeletonProps) {
   return (
     <div
       className={clsx(
-        'animate-shimmer bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] rounded',
+        'animate-shimmer bg-gradient-to-r from-dark-700 via-dark-600 to-dark-700 bg-[length:200%_100%] rounded',
         className
       )}
     />

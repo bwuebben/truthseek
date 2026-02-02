@@ -42,12 +42,12 @@ export function PlatformStatsBar() {
 
   if (isLoadingStats && !platformStats) {
     return (
-      <div className="bg-gradient-to-r from-gray-50 to-gray-100 rounded-lg px-4 py-3">
+      <div className="bg-dark-800 border border-dark-600 rounded-lg px-4 py-3">
         <div className="flex items-center justify-center gap-8">
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="text-center">
-              <div className="h-5 w-12 bg-gray-200 rounded animate-pulse mx-auto mb-1" />
-              <div className="h-3 w-16 bg-gray-200 rounded animate-pulse mx-auto" />
+              <div className="h-5 w-12 bg-dark-600 rounded animate-pulse mx-auto mb-1" />
+              <div className="h-3 w-16 bg-dark-600 rounded animate-pulse mx-auto" />
             </div>
           ))}
         </div>
@@ -83,11 +83,11 @@ export function PlatformStatsBar() {
   ];
 
   return (
-    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg px-4 py-3">
+    <div className="bg-dark-800 border border-dark-600 rounded-lg px-4 py-3">
       <div className="flex items-center justify-center gap-8 flex-wrap text-sm">
         {stats.map((stat, index) => (
           <div key={stat.label} className="flex items-center gap-2">
-            <span className="font-semibold text-gray-900">
+            <span className="font-semibold text-accent-cyan">
               {hasLoaded ? (
                 <AnimatedNumber value={stat.value} duration={800 + index * 100} />
               ) : (
@@ -96,7 +96,7 @@ export function PlatformStatsBar() {
             </span>
             <span className="text-gray-500">{stat.label}</span>
             {index < stats.length - 1 && (
-              <span className="text-gray-300 ml-4">·</span>
+              <span className="text-dark-500 ml-4">·</span>
             )}
           </div>
         ))}

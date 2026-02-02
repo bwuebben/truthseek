@@ -16,14 +16,14 @@ interface ClaimCardProps {
 
 export function ClaimCard({ claim, showVoting = true, showBookmark = true }: ClaimCardProps) {
   const complexityColors = {
-    simple: 'bg-blue-100 text-blue-700',
-    moderate: 'bg-purple-100 text-purple-700',
-    complex: 'bg-orange-100 text-orange-700',
-    contested: 'bg-red-100 text-red-700',
+    simple: 'bg-accent-cyan/10 text-accent-cyan border-accent-cyan/20',
+    moderate: 'bg-accent-purple/10 text-accent-purple border-accent-purple/20',
+    complex: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+    contested: 'bg-accent-coral/10 text-accent-coral border-accent-coral/20',
   };
 
   return (
-    <div className="card hover-lift">
+    <div className="card hover-lift hover:border-dark-500">
       <div className="flex gap-4">
         {/* Gradient indicator */}
         <div className="flex-shrink-0">
@@ -34,7 +34,7 @@ export function ClaimCard({ claim, showVoting = true, showBookmark = true }: Cla
         <div className="flex-grow min-w-0">
           <div className="flex items-start justify-between gap-2">
             <Link href={`/claims/${claim.id}`}>
-              <h3 className="text-lg font-medium text-gray-900 hover:text-blue-600 transition-colors line-clamp-2">
+              <h3 className="text-lg font-medium text-white hover:text-accent-cyan transition-colors line-clamp-2">
                 {claim.statement}
               </h3>
             </Link>
@@ -46,7 +46,7 @@ export function ClaimCard({ claim, showVoting = true, showBookmark = true }: Cla
           <div className="flex items-center gap-3 mt-2 text-sm text-gray-500">
             <Link
               href={`/agents/${claim.author.id}`}
-              className="hover:text-blue-600 transition-colors"
+              className="hover:text-accent-cyan transition-colors"
             >
               @{claim.author.username}
             </Link>
@@ -66,7 +66,7 @@ export function ClaimCard({ claim, showVoting = true, showBookmark = true }: Cla
           <div className="flex flex-wrap items-center gap-2 mt-3">
             <span
               className={clsx(
-                'tag capitalize',
+                'tag capitalize border',
                 complexityColors[claim.complexity_tier]
               )}
             >
@@ -77,7 +77,7 @@ export function ClaimCard({ claim, showVoting = true, showBookmark = true }: Cla
               <Link
                 key={tag}
                 href={`/topics/${encodeURIComponent(tag)}`}
-                className="tag bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                className="tag hover:border-accent-cyan/30 hover:text-accent-cyan transition-colors"
               >
                 {tag}
               </Link>
