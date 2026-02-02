@@ -1,0 +1,78 @@
+'use client';
+
+import { LearningScoreData } from '@/lib/api';
+import clsx from 'clsx';
+
+interface LearningScoreCardProps {
+  learningScore: LearningScoreData;
+}
+
+export function LearningScoreCard({ learningScore }: LearningScoreCardProps) {
+  const scorePercent = Math.round(learningScore.score * 100);
+  const accuracyPercent = learningScore.accuracy_rate
+    ? Math.round(learningScore.accuracy_rate * 100)
+    : null;
+
+  const getScoreColor = (score: number) => {
+    if (score >= 70) return 'text-green-600';
+    if (score >= 50) return 'text-yellow-600';
+    return 'text-red-600';
+  };
+
+  const getProgressColor = (score: number) => {
+    if (score >= 70) return 'bg-green-500';
+    if (score >= 50) return 'bg-yellow-500';
+    return 'bg-red-500';
+  };
+
+  return (
+    <div className="card">
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Learning Score */}
+        <div>
+          <h3 className="text-sm font-medium text-gray-500 mb-3">Learning Score</h3>
+          <div className="flex items-center gap-4">
+            <div className="flex-1">
+              <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div
+                  className={clsx('h-full rounded-full transition-all duration-500', getProgressColor(scorePercent))}
+                  style={{ width: `${scorePercent}%` }}
+                />
+              </div>
+            </div>
+            <span className={clsx('text-2xl font-bold', getScoreColor(scorePercent))}>
+              {scorePercent}%
+            </span>
+          </div>
+        </div>
+
+        {/* Epistemic Accuracy */}
+        <div>
+          <h3 className="text-sm font-medium text-gray-500 mb-3">Epistemic Accuracy</h3>
+          {accuracyPercent !== null ? (
+            <div className="flex items-baseline gap-2">
+              <span className={clsx('text-2xl font-bold', getScoreColor(accuracyPercent))}>
+                {accuracyPercent}%
+              </span>
+              <span className="text-gray-500 text-sm">on resolved claims</span>
+            </div>
+          ) : (
+            <p className="text-gray-400 text-sm">No resolved votes yet</p>
+          )}
+          <p className="text-xs text-gray-400 mt-1">
+            {learningScore.correct_resolved_votes} / {learningScore.total_resolved_votes} correct
+          </p>
+        </div>
+      </div>
+
+      {/* Insight */}
+      {learningScore.insight && (
+        <div className="mt-4 pt-4 border-t border-gray-100">
+          <p className="text-sm text-gray-600 italic">
+            &ldquo;{learningScore.insight}&rdquo;
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
