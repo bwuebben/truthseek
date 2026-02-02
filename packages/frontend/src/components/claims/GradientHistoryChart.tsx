@@ -23,7 +23,7 @@ export function GradientHistoryChart({
 }: GradientHistoryChartProps) {
   if (history.length === 0) {
     return (
-      <div className="text-center py-8 text-gray-500">
+      <div className="text-center py-8 text-text-muted">
         No gradient history yet
       </div>
     );
@@ -38,9 +38,9 @@ export function GradientHistoryChart({
     }));
 
   const getGradientColor = (value: number) => {
-    if (value < 30) return '#ef4444';
-    if (value > 70) return '#22c55e';
-    return '#eab308';
+    if (value < 30) return '#ff4d4d';
+    if (value > 70) return '#10b981';
+    return '#f59e0b';
   };
 
   return (
@@ -52,42 +52,42 @@ export function GradientHistoryChart({
         >
           <defs>
             <linearGradient id="gradientLine" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
-              <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+              <stop offset="5%" stopColor="#ff4d4d" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#ff4d4d" stopOpacity={0} />
             </linearGradient>
           </defs>
 
           <XAxis
             dataKey="date"
             tickFormatter={(date) => format(date, 'MMM d')}
-            tick={{ fontSize: 12 }}
-            stroke="#9ca3af"
+            tick={{ fontSize: 12, fill: '#5a6480' }}
+            stroke="#5a6480"
           />
 
           <YAxis
             domain={[0, 100]}
             tickFormatter={(value) => `${value}%`}
-            tick={{ fontSize: 12 }}
-            stroke="#9ca3af"
+            tick={{ fontSize: 12, fill: '#5a6480' }}
+            stroke="#5a6480"
             width={45}
           />
 
           {/* Reference lines for truth thresholds */}
           <ReferenceLine
             y={30}
-            stroke="#ef4444"
+            stroke="#ff4d4d"
             strokeDasharray="3 3"
             strokeOpacity={0.5}
           />
           <ReferenceLine
             y={70}
-            stroke="#22c55e"
+            stroke="#10b981"
             strokeDasharray="3 3"
             strokeOpacity={0.5}
           />
           <ReferenceLine
             y={50}
-            stroke="#9ca3af"
+            stroke="#5a6480"
             strokeDasharray="3 3"
             strokeOpacity={0.3}
           />
@@ -97,8 +97,8 @@ export function GradientHistoryChart({
               if (!active || !payload?.length) return null;
               const data = payload[0].payload;
               return (
-                <div className="bg-white border border-gray-200 rounded-lg shadow-lg p-3">
-                  <p className="text-sm text-gray-600">
+                <div className="bg-dark-700 border border-subtle rounded-lg shadow-lg p-3">
+                  <p className="text-sm text-text-muted">
                     {format(data.date, 'MMM d, yyyy h:mm a')}
                   </p>
                   <p
@@ -107,7 +107,7 @@ export function GradientHistoryChart({
                   >
                     {data.gradientPercent.toFixed(1)}%
                   </p>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-text-muted">
                     {data.vote_count} votes
                   </p>
                 </div>
@@ -118,13 +118,13 @@ export function GradientHistoryChart({
           <Line
             type="monotone"
             dataKey="gradientPercent"
-            stroke="#3b82f6"
+            stroke="#ff4d4d"
             strokeWidth={2}
             dot={false}
             activeDot={{
               r: 6,
-              fill: '#3b82f6',
-              stroke: '#fff',
+              fill: '#ff4d4d',
+              stroke: '#0a0f1a',
               strokeWidth: 2,
             }}
           />
@@ -133,16 +133,16 @@ export function GradientHistoryChart({
 
       <div className="flex justify-center gap-6 mt-4 text-xs">
         <div className="flex items-center gap-1">
-          <div className="w-3 h-0.5 bg-green-500" />
-          <span className="text-gray-500">Likely True (&gt;70%)</span>
+          <div className="w-3 h-0.5 bg-emerald-500" />
+          <span className="text-text-muted">Likely True (&gt;70%)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-0.5 bg-yellow-500" />
-          <span className="text-gray-500">Uncertain (30-70%)</span>
+          <div className="w-3 h-0.5 bg-amber-500" />
+          <span className="text-text-muted">Uncertain (30-70%)</span>
         </div>
         <div className="flex items-center gap-1">
-          <div className="w-3 h-0.5 bg-red-500" />
-          <span className="text-gray-500">Likely False (&lt;30%)</span>
+          <div className="w-3 h-0.5 bg-accent-coral" />
+          <span className="text-text-muted">Likely False (&lt;30%)</span>
         </div>
       </div>
     </div>

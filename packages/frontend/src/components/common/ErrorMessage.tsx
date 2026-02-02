@@ -18,14 +18,14 @@ export function ErrorMessage({
   return (
     <div
       className={clsx(
-        'rounded-lg border border-red-200 bg-red-50 p-4',
+        'rounded-lg border border-accent-coral/30 bg-accent-coral/10 p-4',
         className
       )}
     >
       <div className="flex">
         <div className="flex-shrink-0">
           <svg
-            className="h-5 w-5 text-red-400"
+            className="h-5 w-5 text-accent-coral"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -37,12 +37,12 @@ export function ErrorMessage({
           </svg>
         </div>
         <div className="ml-3 flex-1">
-          <h3 className="text-sm font-medium text-red-800">{title}</h3>
-          <p className="mt-1 text-sm text-red-700">{message}</p>
+          <h3 className="text-sm font-medium text-accent-coral">{title}</h3>
+          <p className="mt-1 text-sm text-text-secondary">{message}</p>
           {onRetry && (
             <button
               onClick={onRetry}
-              className="mt-3 text-sm font-medium text-red-800 hover:text-red-900 underline"
+              className="mt-3 text-sm font-medium text-accent-coral hover:text-accent-coral-hover underline"
             >
               Try again
             </button>
@@ -69,11 +69,11 @@ export function NotFound({
   return (
     <div className="min-h-[400px] flex items-center justify-center">
       <div className="text-center">
-        <h1 className="text-6xl font-bold text-gray-300">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-gray-900">
+        <h1 className="text-6xl font-bold text-dark-600">404</h1>
+        <h2 className="mt-4 text-xl font-semibold text-text-primary">
           {resource} not found
         </h2>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-text-muted">
           {message || `The ${resource.toLowerCase()} you're looking for doesn't exist.`}
         </p>
         <a href={backHref} className="btn-primary mt-6 inline-block">
@@ -103,9 +103,9 @@ export function EmptyState({
   return (
     <div className="text-center py-12">
       {icon && <div className="mx-auto mb-4">{icon}</div>}
-      <h3 className="text-lg font-medium text-gray-900">{title}</h3>
+      <h3 className="text-lg font-medium text-text-primary">{title}</h3>
       {description && (
-        <p className="mt-2 text-sm text-gray-500">{description}</p>
+        <p className="mt-2 text-sm text-text-muted">{description}</p>
       )}
       {action && (
         <button onClick={action.onClick} className="btn-primary mt-4">

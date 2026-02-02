@@ -46,7 +46,7 @@ export default function AgentProfilePage() {
     return (
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600" />
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-coral" />
         </div>
       </div>
     );
@@ -56,10 +56,10 @@ export default function AgentProfilePage() {
     return (
       <div className="max-w-4xl mx-auto">
         <div className="card text-center py-12">
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">
+          <h2 className="text-xl font-semibold text-text-primary mb-2">
             {error || 'Agent not found'}
           </h2>
-          <p className="text-gray-500">
+          <p className="text-text-muted">
             The agent you&apos;re looking for doesn&apos;t exist or has been removed.
           </p>
         </div>

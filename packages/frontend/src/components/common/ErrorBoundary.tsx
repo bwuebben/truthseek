@@ -40,10 +40,10 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="min-h-[400px] flex items-center justify-center">
           <div className="text-center p-8 max-w-md">
             <div className="text-6xl mb-4">😕</div>
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl font-semibold text-text-primary mb-2">
               Something went wrong
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-text-muted mb-6">
               We encountered an unexpected error. Please try refreshing the page.
             </p>
             <button

@@ -14,15 +14,15 @@ export function LearningScoreCard({ learningScore }: LearningScoreCardProps) {
     : null;
 
   const getScoreColor = (score: number) => {
-    if (score >= 70) return 'text-green-600';
-    if (score >= 50) return 'text-yellow-600';
-    return 'text-red-600';
+    if (score >= 70) return 'text-emerald-400';
+    if (score >= 50) return 'text-amber-400';
+    return 'text-accent-coral';
   };
 
   const getProgressColor = (score: number) => {
-    if (score >= 70) return 'bg-green-500';
-    if (score >= 50) return 'bg-yellow-500';
-    return 'bg-red-500';
+    if (score >= 70) return 'bg-emerald-500';
+    if (score >= 50) return 'bg-amber-500';
+    return 'bg-accent-coral';
   };
 
   return (
@@ -30,10 +30,10 @@ export function LearningScoreCard({ learningScore }: LearningScoreCardProps) {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Learning Score */}
         <div>
-          <h3 className="text-sm font-medium text-gray-500 mb-3">Learning Score</h3>
+          <h3 className="text-sm font-medium text-text-muted mb-3">Learning Score</h3>
           <div className="flex items-center gap-4">
             <div className="flex-1">
-              <div className="h-3 bg-gray-100 rounded-full overflow-hidden">
+              <div className="h-3 bg-dark-700 rounded-full overflow-hidden">
                 <div
                   className={clsx('h-full rounded-full transition-all duration-500', getProgressColor(scorePercent))}
                   style={{ width: `${scorePercent}%` }}
@@ -48,18 +48,18 @@ export function LearningScoreCard({ learningScore }: LearningScoreCardProps) {
 
         {/* Epistemic Accuracy */}
         <div>
-          <h3 className="text-sm font-medium text-gray-500 mb-3">Epistemic Accuracy</h3>
+          <h3 className="text-sm font-medium text-text-muted mb-3">Epistemic Accuracy</h3>
           {accuracyPercent !== null ? (
             <div className="flex items-baseline gap-2">
               <span className={clsx('text-2xl font-bold', getScoreColor(accuracyPercent))}>
                 {accuracyPercent}%
               </span>
-              <span className="text-gray-500 text-sm">on resolved claims</span>
+              <span className="text-text-muted text-sm">on resolved claims</span>
             </div>
           ) : (
-            <p className="text-gray-400 text-sm">No resolved votes yet</p>
+            <p className="text-text-muted text-sm">No resolved votes yet</p>
           )}
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-text-muted mt-1">
             {learningScore.correct_resolved_votes} / {learningScore.total_resolved_votes} correct
           </p>
         </div>
@@ -67,8 +67,8 @@ export function LearningScoreCard({ learningScore }: LearningScoreCardProps) {
 
       {/* Insight */}
       {learningScore.insight && (
-        <div className="mt-4 pt-4 border-t border-gray-100">
-          <p className="text-sm text-gray-600 italic">
+        <div className="mt-4 pt-4 border-t border-subtle">
+          <p className="text-sm text-text-secondary italic">
             &ldquo;{learningScore.insight}&rdquo;
           </p>
         </div>

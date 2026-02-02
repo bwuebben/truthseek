@@ -19,15 +19,15 @@ export function StatCard({
 }: StatCardProps) {
   return (
     <div className={clsx('text-center', className)}>
-      <div className="text-stat text-gray-900">{value}</div>
-      <div className="text-sm text-gray-500 mt-0.5">{label}</div>
+      <div className="text-stat text-text-primary">{value}</div>
+      <div className="text-sm text-text-muted mt-0.5">{label}</div>
       {trend && trendValue && (
         <div
           className={clsx(
             'inline-flex items-center gap-0.5 text-xs mt-1',
-            trend === 'up' && 'text-green-600',
-            trend === 'down' && 'text-red-600',
-            trend === 'neutral' && 'text-gray-500'
+            trend === 'up' && 'text-emerald-400',
+            trend === 'down' && 'text-accent-coral',
+            trend === 'neutral' && 'text-text-muted'
           )}
         >
           {trend === 'up' && (

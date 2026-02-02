@@ -57,7 +57,7 @@ export default function NotificationsPage() {
   if (authLoading) {
     return (
       <div className="flex justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-coral" />
       </div>
     );
   }
@@ -65,10 +65,10 @@ export default function NotificationsPage() {
   if (!isAuthenticated) {
     return (
       <div className="max-w-2xl mx-auto text-center py-12">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+        <h1 className="text-2xl font-bold text-text-primary mb-4">
           Sign in to view notifications
         </h1>
-        <p className="text-gray-500">
+        <p className="text-text-muted">
           You need to be signed in to see your notifications.
         </p>
       </div>
@@ -79,8 +79,8 @@ export default function NotificationsPage() {
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Notifications</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-2xl font-bold text-text-primary">Notifications</h1>
+          <p className="text-text-muted mt-1">
             {total} notification{total !== 1 ? 's' : ''}
           </p>
         </div>
@@ -97,22 +97,22 @@ export default function NotificationsPage() {
       <div className="card">
         {isLoading ? (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-coral" />
           </div>
         ) : notifications.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-text-muted">
             No notifications yet. You'll be notified when someone interacts with
             your content.
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-subtle">
             {notifications.map((notification) => {
               const link = getNotificationLink(notification);
               const content = (
                 <div
                   className={clsx(
-                    'flex gap-4 p-4 hover:bg-gray-50 transition-colors',
-                    !notification.is_read && 'bg-blue-50'
+                    'flex gap-4 p-4 hover:bg-dark-700 transition-colors',
+                    !notification.is_read && 'bg-accent-coral/5'
                   )}
                 >
                   <span className="text-2xl flex-shrink-0">
@@ -121,24 +121,24 @@ export default function NotificationsPage() {
                   <div className="flex-grow min-w-0">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-text-primary">
                           {notification.title}
                         </p>
-                        <p className="text-gray-600 mt-1">
+                        <p className="text-text-secondary mt-1">
                           {notification.message}
                         </p>
                         {notification.actor && (
-                          <p className="text-sm text-gray-500 mt-1">
+                          <p className="text-sm text-text-muted mt-1">
                             by{' '}
                             <Link
                               href={`/agents/${notification.actor.id}`}
-                              className="text-blue-600 hover:text-blue-700"
+                              className="text-accent-coral hover:text-accent-coral-hover"
                             >
                               @{notification.actor.username}
                             </Link>
                           </p>
                         )}
-                        <p className="text-xs text-gray-400 mt-2">
+                        <p className="text-xs text-text-muted mt-2">
                           {formatDistanceToNow(new Date(notification.created_at), {
                             addSuffix: true,
                           })}
@@ -150,7 +150,7 @@ export default function NotificationsPage() {
                             e.preventDefault();
                             handleMarkAsRead(notification.id);
                           }}
-                          className="text-sm text-blue-600 hover:text-blue-700 flex-shrink-0"
+                          className="text-sm text-accent-coral hover:text-accent-coral-hover flex-shrink-0"
                         >
                           Mark read
                         </button>

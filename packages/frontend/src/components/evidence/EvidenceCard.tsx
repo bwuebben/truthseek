@@ -45,15 +45,15 @@ export function EvidenceCard({ evidence, onVote }: EvidenceCardProps) {
   };
 
   const positionColors = {
-    supports: 'border-l-green-500 bg-green-50',
-    opposes: 'border-l-red-500 bg-red-50',
-    neutral: 'border-l-gray-400 bg-gray-50',
+    supports: 'border-l-emerald-500 bg-emerald-500/5',
+    opposes: 'border-l-accent-coral bg-accent-coral/5',
+    neutral: 'border-l-text-muted bg-dark-700',
   };
 
   const positionBadgeColors = {
-    supports: 'bg-green-100 text-green-700',
-    opposes: 'bg-red-100 text-red-700',
-    neutral: 'bg-gray-100 text-gray-700',
+    supports: 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30',
+    opposes: 'bg-accent-coral/10 text-accent-coral border border-accent-coral/30',
+    neutral: 'bg-dark-600 text-text-muted border border-subtle',
   };
 
   return (
@@ -72,8 +72,8 @@ export function EvidenceCard({ evidence, onVote }: EvidenceCardProps) {
             className={clsx(
               'p-1 rounded transition-colors',
               currentVote === 'up'
-                ? 'text-green-600'
-                : 'text-gray-400 hover:text-green-600'
+                ? 'text-emerald-400'
+                : 'text-text-muted hover:text-emerald-400'
             )}
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -89,10 +89,10 @@ export function EvidenceCard({ evidence, onVote }: EvidenceCardProps) {
             className={clsx(
               'text-sm font-medium',
               voteScore > 0
-                ? 'text-green-600'
+                ? 'text-emerald-400'
                 : voteScore < 0
-                ? 'text-red-600'
-                : 'text-gray-500'
+                ? 'text-accent-coral'
+                : 'text-text-muted'
             )}
           >
             {voteScore}
@@ -104,8 +104,8 @@ export function EvidenceCard({ evidence, onVote }: EvidenceCardProps) {
             className={clsx(
               'p-1 rounded transition-colors',
               currentVote === 'down'
-                ? 'text-red-600'
-                : 'text-gray-400 hover:text-red-600'
+                ? 'text-accent-coral'
+                : 'text-text-muted hover:text-accent-coral'
             )}
           >
             <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -129,23 +129,23 @@ export function EvidenceCard({ evidence, onVote }: EvidenceCardProps) {
             >
               {evidence.position}
             </span>
-            <span className="tag bg-gray-100 text-gray-600 capitalize">
+            <span className="tag bg-dark-600 text-text-muted capitalize border border-subtle">
               {evidence.content_type}
             </span>
           </div>
 
-          <div className="prose prose-sm max-w-none text-gray-700">
+          <div className="prose prose-invert prose-sm max-w-none text-text-secondary">
             {evidence.content_type === 'link' ? (
               <a
                 href={evidence.content}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-600 hover:underline break-all"
+                className="text-accent-coral hover:underline break-all"
               >
                 {evidence.content}
               </a>
             ) : evidence.content_type === 'code' ? (
-              <pre className="bg-gray-800 text-gray-100 p-3 rounded-lg overflow-x-auto">
+              <pre className="bg-dark-800 text-text-primary p-3 rounded-lg overflow-x-auto border border-subtle">
                 <code>{evidence.content}</code>
               </pre>
             ) : (
@@ -153,10 +153,10 @@ export function EvidenceCard({ evidence, onVote }: EvidenceCardProps) {
             )}
           </div>
 
-          <div className="flex items-center gap-3 mt-3 text-sm text-gray-500">
+          <div className="flex items-center gap-3 mt-3 text-sm text-text-muted">
             <Link
               href={`/agents/${evidence.author.id}`}
-              className="hover:text-blue-600"
+              className="hover:text-accent-coral"
             >
               @{evidence.author.username}
             </Link>

@@ -20,14 +20,14 @@ export function NotificationBell() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={clsx(
-          'relative p-2 rounded-lg hover:bg-gray-100 transition-colors',
-          isOpen && 'bg-gray-100'
+          'relative p-2 rounded-lg hover:bg-dark-700 transition-colors',
+          isOpen && 'bg-dark-700'
         )}
         aria-label="Notifications"
       >
         {/* Bell icon */}
         <svg
-          className="w-6 h-6 text-gray-600"
+          className="w-6 h-6 text-text-secondary"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -42,7 +42,7 @@ export function NotificationBell() {
 
         {/* Unread badge */}
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-red-500 text-white text-xs font-medium rounded-full">
+          <span className="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center bg-accent-coral text-white text-xs font-medium rounded-full">
             {unreadCount > 99 ? '99+' : unreadCount}
           </span>
         )}

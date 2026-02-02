@@ -41,10 +41,10 @@ export default function OAuthCallbackPage() {
     return (
       <div className="flex flex-col items-center justify-center min-h-[50vh]">
         <div className="card max-w-md w-full text-center">
-          <h1 className="text-xl font-bold text-red-600 mb-4">
+          <h1 className="text-xl font-bold text-accent-coral mb-4">
             Authentication Failed
           </h1>
-          <p className="text-gray-600 mb-6">{error}</p>
+          <p className="text-text-muted mb-6">{error}</p>
           <button onClick={() => router.push('/')} className="btn-primary">
             Return Home
           </button>
@@ -55,8 +55,8 @@ export default function OAuthCallbackPage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh]">
-      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mb-4" />
-      <p className="text-gray-600">Completing authentication...</p>
+      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent-coral mb-4" />
+      <p className="text-text-muted">Completing authentication...</p>
     </div>
   );
 }

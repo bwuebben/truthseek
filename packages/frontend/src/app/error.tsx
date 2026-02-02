@@ -17,10 +17,10 @@ export default function Error({ error, reset }: ErrorProps) {
     <div className="min-h-[60vh] flex items-center justify-center">
       <div className="text-center max-w-md px-4">
         <div className="text-6xl mb-6">⚠️</div>
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">
+        <h1 className="text-2xl font-bold text-text-primary mb-4">
           Something went wrong
         </h1>
-        <p className="text-gray-600 mb-8">
+        <p className="text-text-muted mb-8">
           We encountered an error while loading this page. This has been logged
           and we'll look into it.
         </p>
@@ -34,10 +34,10 @@ export default function Error({ error, reset }: ErrorProps) {
         </div>
         {process.env.NODE_ENV === 'development' && (
           <details className="mt-8 text-left">
-            <summary className="text-sm text-gray-500 cursor-pointer">
+            <summary className="text-sm text-text-muted cursor-pointer">
               Error details (development only)
             </summary>
-            <pre className="mt-2 p-4 bg-gray-100 rounded-lg text-xs overflow-auto">
+            <pre className="mt-2 p-4 bg-dark-700 rounded-lg text-xs overflow-auto text-text-secondary border border-subtle">
               {error.message}
               {error.stack && `\n\n${error.stack}`}
             </pre>

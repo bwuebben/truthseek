@@ -32,14 +32,14 @@ export function GradientDisplay({
   // Calculate color based on gradient
   const color = useMemo(() => {
     if (normalizedValue < 0.3) {
-      // False - red
-      return 'rgb(239, 68, 68)';
+      // False - coral/red
+      return '#ff4d4d';
     } else if (normalizedValue > 0.7) {
-      // True - green
-      return 'rgb(34, 197, 94)';
+      // True - emerald/green
+      return '#10b981';
     } else {
-      // Uncertain - interpolate between yellow and neutral
-      return 'rgb(234, 179, 8)';
+      // Uncertain - amber/yellow
+      return '#f59e0b';
     }
   }, [normalizedValue]);
 
@@ -47,7 +47,7 @@ export function GradientDisplay({
   const gradientStyle = useMemo(() => {
     const percentage = normalizedValue * 100;
     return {
-      background: `linear-gradient(to right, ${color} ${percentage}%, #e5e7eb ${percentage}%)`,
+      background: `linear-gradient(to right, ${color} ${percentage}%, #1a2332 ${percentage}%)`,
     };
   }, [normalizedValue, color]);
 
@@ -74,7 +74,7 @@ export function GradientDisplay({
             {label}
           </span>
           {showPercentage && (
-            <span className={clsx('text-gray-500', sizeClasses[size])}>
+            <span className={clsx('text-text-muted', sizeClasses[size])}>
               {(normalizedValue * 100).toFixed(0)}%
             </span>
           )}
@@ -83,7 +83,7 @@ export function GradientDisplay({
 
       <div
         className={clsx(
-          'w-full rounded-full overflow-hidden bg-gray-200',
+          'w-full rounded-full overflow-hidden bg-dark-700',
           sizeClasses[size].split(' ')[0]
         )}
       >
@@ -121,20 +121,20 @@ export function GradientBadge({ value, className }: GradientBadgeProps) {
   const { color, bgColor, label } = useMemo(() => {
     if (normalizedValue < 0.3) {
       return {
-        color: 'text-red-700',
-        bgColor: 'bg-red-100',
+        color: 'text-accent-coral',
+        bgColor: 'bg-accent-coral/10 border border-accent-coral/30',
         label: 'False',
       };
     } else if (normalizedValue > 0.7) {
       return {
-        color: 'text-green-700',
-        bgColor: 'bg-green-100',
+        color: 'text-emerald-400',
+        bgColor: 'bg-emerald-500/10 border border-emerald-500/30',
         label: 'True',
       };
     } else {
       return {
-        color: 'text-yellow-700',
-        bgColor: 'bg-yellow-100',
+        color: 'text-amber-400',
+        bgColor: 'bg-amber-500/10 border border-amber-500/30',
         label: 'Uncertain',
       };
     }
@@ -175,9 +175,9 @@ export function GradientCircle({
   const strokeDashoffset = circumference - normalizedValue * circumference;
 
   const color = useMemo(() => {
-    if (normalizedValue < 0.3) return '#ef4444';
-    if (normalizedValue > 0.7) return '#22c55e';
-    return '#eab308';
+    if (normalizedValue < 0.3) return '#ff4d4d';
+    if (normalizedValue > 0.7) return '#10b981';
+    return '#f59e0b';
   }, [normalizedValue]);
 
   const glowClass = useMemo(() => {
@@ -195,7 +195,7 @@ export function GradientCircle({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#e5e7eb"
+          stroke="#1a2332"
           strokeWidth={strokeWidth}
         />
         {/* Progress circle */}

@@ -68,8 +68,8 @@ export function FollowClaimButton({
         'rounded-lg transition-all flex items-center gap-1.5',
         sizeClasses[size],
         isFollowing
-          ? 'text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100'
-          : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100',
+          ? 'text-accent-coral hover:text-accent-coral-hover bg-accent-coral/10 hover:bg-accent-coral/20'
+          : 'text-text-muted hover:text-text-secondary hover:bg-dark-700',
         isLoading && 'opacity-50 cursor-wait'
       )}
       title={isFollowing ? 'Unfollow' : 'Follow for updates'}

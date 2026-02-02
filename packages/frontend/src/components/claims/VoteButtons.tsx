@@ -40,16 +40,16 @@ export function VoteButtons({ claimId, currentVote }: VoteButtonsProps) {
 
   if (!isAuthenticated) {
     return (
-      <div className="text-xs text-gray-400 text-center">
+      <div className="text-xs text-text-muted text-center">
         Sign in to vote
       </div>
     );
   }
 
   const buttons = [
-    { value: 1, label: 'True', activeColor: 'bg-green-500', hoverColor: 'hover:bg-green-100 hover:text-green-700' },
-    { value: 0.5, label: 'Unsure', activeColor: 'bg-yellow-500', hoverColor: 'hover:bg-yellow-100 hover:text-yellow-700' },
-    { value: 0, label: 'False', activeColor: 'bg-red-500', hoverColor: 'hover:bg-red-100 hover:text-red-700' },
+    { value: 1, label: 'True', activeColor: 'bg-emerald-500', hoverColor: 'hover:bg-emerald-500/10 hover:text-emerald-400' },
+    { value: 0.5, label: 'Unsure', activeColor: 'bg-amber-500', hoverColor: 'hover:bg-amber-500/10 hover:text-amber-400' },
+    { value: 0, label: 'False', activeColor: 'bg-accent-coral', hoverColor: 'hover:bg-accent-coral/10 hover:text-accent-coral' },
   ];
 
   return (
@@ -61,10 +61,10 @@ export function VoteButtons({ claimId, currentVote }: VoteButtonsProps) {
           onClick={() => handleVote(btn.value, index)}
           disabled={isVoting}
           className={clsx(
-            'px-3 py-1.5 rounded-lg text-sm font-medium transition-all',
+            'px-3 py-1.5 rounded-lg text-sm font-medium transition-all border',
             currentVote === btn.value
-              ? `${btn.activeColor} text-white shadow-md`
-              : `bg-gray-100 text-gray-600 ${btn.hoverColor}`,
+              ? `${btn.activeColor} text-white shadow-md border-transparent`
+              : `bg-dark-700 text-text-muted border-subtle ${btn.hoverColor}`,
             animatingButton === btn.value && 'animate-vote-pulse',
             isVoting && 'opacity-70 cursor-wait'
           )}

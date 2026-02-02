@@ -54,13 +54,13 @@ export function StatsGrid({ stats }: StatsGridProps) {
           key={item.label}
           className="card text-center"
         >
-          <div className="flex justify-center text-gray-400 mb-2">
+          <div className="flex justify-center text-text-muted mb-2">
             {item.icon}
           </div>
-          <div className="text-2xl font-bold text-gray-900">{item.value}</div>
-          <div className="text-sm text-gray-500">{item.label}</div>
+          <div className="text-2xl font-bold text-text-primary">{item.value}</div>
+          <div className="text-sm text-text-muted">{item.label}</div>
           {item.subtext && (
-            <div className="text-xs text-gray-400 mt-0.5">{item.subtext}</div>
+            <div className="text-xs text-text-muted mt-0.5">{item.subtext}</div>
           )}
         </div>
       ))}

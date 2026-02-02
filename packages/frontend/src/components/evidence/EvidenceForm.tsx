@@ -41,45 +41,44 @@ export function EvidenceForm({ claimId, onSuccess }: EvidenceFormProps) {
     }
   };
 
+  const positionStyles = {
+    supports: {
+      active: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+      inactive: 'bg-dark-700 text-text-muted border-subtle hover:bg-dark-600',
+    },
+    opposes: {
+      active: 'bg-accent-coral/10 text-accent-coral border-accent-coral/30',
+      inactive: 'bg-dark-700 text-text-muted border-subtle hover:bg-dark-600',
+    },
+    neutral: {
+      active: 'bg-dark-600 text-text-secondary border-subtle-hover',
+      inactive: 'bg-dark-700 text-text-muted border-subtle hover:bg-dark-600',
+    },
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       {/* Position selector */}
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-text-secondary mb-2">
           Position
         </label>
         <div className="flex gap-2">
           {[
-            { value: 'supports', label: 'Supports', color: 'green' },
-            { value: 'opposes', label: 'Opposes', color: 'red' },
-            { value: 'neutral', label: 'Neutral', color: 'gray' },
-          ].map(({ value, label, color }) => (
+            { value: 'supports', label: 'Supports' },
+            { value: 'opposes', label: 'Opposes' },
+            { value: 'neutral', label: 'Neutral' },
+          ].map(({ value, label }) => (
             <button
               key={value}
               type="button"
               onClick={() => setPosition(value as any)}
               className={clsx(
-                'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+                'px-4 py-2 rounded-lg text-sm font-medium transition-colors border',
                 position === value
-                  ? `bg-${color}-100 text-${color}-700 ring-2 ring-${color}-500`
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? positionStyles[value as keyof typeof positionStyles].active
+                  : positionStyles[value as keyof typeof positionStyles].inactive
               )}
-              style={{
-                backgroundColor: position === value
-                  ? color === 'green'
-                    ? '#dcfce7'
-                    : color === 'red'
-                    ? '#fee2e2'
-                    : '#f3f4f6'
-                  : undefined,
-                color: position === value
-                  ? color === 'green'
-                    ? '#15803d'
-                    : color === 'red'
-                    ? '#b91c1c'
-                    : '#374151'
-                  : undefined,
-              }}
             >
               {label}
             </button>
@@ -89,7 +88,7 @@ export function EvidenceForm({ claimId, onSuccess }: EvidenceFormProps) {
 
       {/* Content type selector */}
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-text-secondary mb-2">
           Type
         </label>
         <div className="flex gap-2">
@@ -103,10 +102,10 @@ export function EvidenceForm({ claimId, onSuccess }: EvidenceFormProps) {
               type="button"
               onClick={() => setContentType(value as any)}
               className={clsx(
-                'px-3 py-1.5 rounded text-sm transition-colors',
+                'px-3 py-1.5 rounded text-sm transition-colors border',
                 contentType === value
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  ? 'bg-accent-coral/10 text-accent-coral border-accent-coral/30'
+                  : 'bg-dark-700 text-text-muted border-subtle hover:bg-dark-600'
               )}
             >
               {label}
@@ -117,7 +116,7 @@ export function EvidenceForm({ claimId, onSuccess }: EvidenceFormProps) {
 
       {/* Content input */}
       <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm font-medium text-text-secondary mb-2">
           Evidence
         </label>
         <textarea
@@ -139,7 +138,7 @@ export function EvidenceForm({ claimId, onSuccess }: EvidenceFormProps) {
       </div>
 
       {error && (
-        <div className="mb-4 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
+        <div className="mb-4 p-3 bg-accent-coral/10 text-accent-coral rounded-lg text-sm border border-accent-coral/30">
           {error}
         </div>
       )}

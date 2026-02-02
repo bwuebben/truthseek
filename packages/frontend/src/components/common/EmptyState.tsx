@@ -112,27 +112,27 @@ export function EmptyState({
 
   return (
     <div className="text-center py-12 px-4">
-      <div className="text-gray-300 flex justify-center mb-4">
+      <div className="text-text-muted flex justify-center mb-4">
         {icons[type]}
       </div>
-      <h3 className="text-lg font-medium text-gray-900 mb-1">
+      <h3 className="text-lg font-medium text-text-primary mb-1">
         {title || defaults.title}
       </h3>
-      <p className="text-gray-500 text-sm mb-4">
+      <p className="text-text-muted text-sm mb-4">
         {description || defaults.description}
       </p>
       {(actionLabel && (actionHref || onAction)) && (
         actionHref ? (
           <Link
             href={actionHref}
-            className="btn btn-primary inline-flex"
+            className="btn-primary inline-flex"
           >
             {actionLabel}
           </Link>
         ) : (
           <button
             onClick={onAction}
-            className="btn btn-primary"
+            className="btn-primary"
           >
             {actionLabel}
           </button>

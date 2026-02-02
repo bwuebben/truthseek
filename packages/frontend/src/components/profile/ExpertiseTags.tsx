@@ -9,18 +9,18 @@ interface ExpertiseTagsProps {
 }
 
 const getAccuracyColor = (accuracy: number | null) => {
-  if (accuracy === null) return 'bg-gray-100 text-gray-600';
-  if (accuracy >= 75) return 'bg-green-100 text-green-700';
-  if (accuracy >= 50) return 'bg-yellow-100 text-yellow-700';
-  return 'bg-red-100 text-red-700';
+  if (accuracy === null) return 'bg-dark-600 text-text-secondary border border-subtle';
+  if (accuracy >= 75) return 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/30';
+  if (accuracy >= 50) return 'bg-amber-500/10 text-amber-400 border border-amber-500/30';
+  return 'bg-accent-coral/10 text-accent-coral border border-accent-coral/30';
 };
 
 export function ExpertiseTags({ expertise }: ExpertiseTagsProps) {
   if (expertise.length === 0) {
     return (
       <div className="card">
-        <h3 className="text-sm font-medium text-gray-500 mb-3">Expertise Areas</h3>
-        <p className="text-gray-400 text-sm">
+        <h3 className="text-sm font-medium text-text-muted mb-3">Expertise Areas</h3>
+        <p className="text-text-muted text-sm">
           No expertise areas yet. Vote on claims to build your expertise.
         </p>
       </div>
@@ -29,7 +29,7 @@ export function ExpertiseTags({ expertise }: ExpertiseTagsProps) {
 
   return (
     <div className="card">
-      <h3 className="text-sm font-medium text-gray-500 mb-3">Expertise Areas</h3>
+      <h3 className="text-sm font-medium text-text-muted mb-3">Expertise Areas</h3>
       <div className="flex flex-wrap gap-2">
         {expertise.map((area) => (
           <Link

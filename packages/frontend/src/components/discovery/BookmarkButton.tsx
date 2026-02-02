@@ -68,8 +68,8 @@ export function BookmarkButton({
         'rounded-lg transition-all flex items-center gap-1.5',
         sizeClasses[size],
         isBookmarked
-          ? 'text-yellow-600 hover:text-yellow-700 bg-yellow-50 hover:bg-yellow-100'
-          : 'text-gray-400 hover:text-gray-600 hover:bg-gray-100',
+          ? 'text-amber-400 hover:text-amber-500 bg-amber-500/10 hover:bg-amber-500/20'
+          : 'text-text-muted hover:text-text-secondary hover:bg-dark-700',
         isLoading && 'opacity-50 cursor-wait'
       )}
       title={isBookmarked ? 'Remove bookmark' : 'Bookmark'}
