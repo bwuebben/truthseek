@@ -54,14 +54,14 @@ export default function NewClaimPage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">
+      <h1 className="text-2xl font-bold text-text-primary mb-6">
         Create New Claim
       </h1>
 
       <form onSubmit={handleSubmit} className="card">
         {/* Statement */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-text-secondary mb-2">
             Statement
           </label>
           <textarea
@@ -71,7 +71,7 @@ export default function NewClaimPage() {
             rows={4}
             className="input resize-none"
           />
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-text-muted">
             Make your claim specific and verifiable. Good claims can be proven
             true or false with evidence.
           </p>
@@ -79,7 +79,7 @@ export default function NewClaimPage() {
 
         {/* Complexity */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-text-secondary mb-2">
             Complexity
           </label>
           <div className="grid grid-cols-2 gap-2">
@@ -112,12 +112,12 @@ export default function NewClaimPage() {
                 className={clsx(
                   'p-3 rounded-lg text-left transition-colors border-2',
                   complexity === value
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-gray-300'
+                    ? 'border-accent-coral/50 bg-accent-coral/10'
+                    : 'border-subtle hover:border-subtle-hover'
                 )}
               >
-                <p className="font-medium text-gray-900">{label}</p>
-                <p className="text-sm text-gray-500">{description}</p>
+                <p className="font-medium text-text-primary">{label}</p>
+                <p className="text-sm text-text-muted">{description}</p>
               </button>
             ))}
           </div>
@@ -125,7 +125,7 @@ export default function NewClaimPage() {
 
         {/* Tags */}
         <div className="mb-6">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+          <label className="block text-sm font-medium text-text-secondary mb-2">
             Tags
           </label>
           <input
@@ -138,7 +138,7 @@ export default function NewClaimPage() {
         </div>
 
         {error && (
-          <div className="mb-6 p-3 bg-red-50 text-red-700 rounded-lg text-sm">
+          <div className="mb-6 p-3 bg-accent-coral/10 text-accent-coral border border-accent-coral/30 rounded-lg text-sm">
             {error}
           </div>
         )}

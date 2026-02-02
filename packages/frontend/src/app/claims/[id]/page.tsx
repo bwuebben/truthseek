@@ -57,16 +57,16 @@ export default function ClaimPage() {
   if (isLoading || !currentClaim) {
     return (
       <div className="flex justify-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-coral" />
       </div>
     );
   }
 
   const complexityColors = {
-    simple: 'bg-blue-100 text-blue-700',
-    moderate: 'bg-purple-100 text-purple-700',
-    complex: 'bg-orange-100 text-orange-700',
-    contested: 'bg-red-100 text-red-700',
+    simple: 'bg-accent-cyan/10 text-accent-cyan border-accent-cyan/20',
+    moderate: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+    complex: 'bg-orange-500/10 text-orange-400 border-orange-500/20',
+    contested: 'bg-accent-coral/10 text-accent-coral border-accent-coral/20',
   };
 
   return (
@@ -83,7 +83,7 @@ export default function ClaimPage() {
 
               <div className="flex-grow min-w-0">
                 <div className="flex items-start justify-between gap-4">
-                  <h1 className="text-2xl font-bold text-gray-900 mb-3">
+                  <h1 className="text-2xl font-bold text-text-primary mb-3">
                     {currentClaim.statement}
                   </h1>
                   {/* Bookmark and Follow buttons */}
@@ -93,10 +93,10 @@ export default function ClaimPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 text-sm text-gray-500 mb-4">
+                <div className="flex items-center gap-3 text-sm text-text-muted mb-4">
                   <Link
                     href={`/agents/${currentClaim.author.id}`}
-                    className="font-medium text-blue-600 hover:text-blue-700"
+                    className="font-medium text-accent-coral hover:text-accent-coral-hover"
                   >
                     @{currentClaim.author.username}
                   </Link>
@@ -113,7 +113,7 @@ export default function ClaimPage() {
                 <div className="flex flex-wrap items-center gap-2">
                   <span
                     className={clsx(
-                      'tag capitalize',
+                      'tag capitalize border',
                       complexityColors[currentClaim.complexity_tier]
                     )}
                   >
@@ -123,7 +123,7 @@ export default function ClaimPage() {
                     <Link
                       key={tag}
                       href={`/topics/${encodeURIComponent(tag)}`}
-                      className="tag bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors"
+                      className="tag hover:border-accent-coral/30 hover:text-accent-coral transition-colors"
                     >
                       {tag}
                     </Link>
@@ -142,7 +142,7 @@ export default function ClaimPage() {
 
           {/* Gradient history */}
           <div className="card">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+            <h2 className="text-lg font-semibold text-text-primary mb-4">
               Gradient History
             </h2>
             <GradientHistoryChart history={currentClaim.gradient_history} />
@@ -151,7 +151,7 @@ export default function ClaimPage() {
           {/* Parent claims */}
           {currentClaim.parent_claims.length > 0 && (
             <div className="card">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              <h2 className="text-lg font-semibold text-text-primary mb-4">
                 Depends On
               </h2>
               <div className="space-y-3">
@@ -159,12 +159,12 @@ export default function ClaimPage() {
                   <Link
                     key={parent.id}
                     href={`/claims/${parent.id}`}
-                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 p-3 rounded-lg hover:bg-dark-700 transition-colors"
                   >
                     <GradientCircle value={parent.gradient} size={40} />
                     <div>
-                      <p className="text-gray-900 line-clamp-1">{parent.statement}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-text-primary line-clamp-1">{parent.statement}</p>
+                      <p className="text-sm text-text-muted">
                         @{parent.author.username}
                       </p>
                     </div>
@@ -177,7 +177,7 @@ export default function ClaimPage() {
           {/* Evidence section */}
           <div className="card">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-lg font-semibold text-gray-900">
+              <h2 className="text-lg font-semibold text-text-primary">
                 Evidence ({evidence.length})
               </h2>
 
@@ -193,7 +193,7 @@ export default function ClaimPage() {
 
             {/* Evidence form */}
             {showEvidenceForm && (
-              <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+              <div className="mb-6 p-4 bg-dark-700 rounded-lg border border-subtle">
                 <EvidenceForm
                   claimId={claimId}
                   onSuccess={() => {
@@ -211,14 +211,14 @@ export default function ClaimPage() {
                   key={tab}
                   onClick={() => setActiveTab(tab as 'all' | 'supports' | 'opposes')}
                   className={clsx(
-                    'px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize',
+                    'px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize border',
                     activeTab === tab
                       ? tab === 'supports'
-                        ? 'bg-green-100 text-green-700'
+                        ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
                         : tab === 'opposes'
-                        ? 'bg-red-100 text-red-700'
-                        : 'bg-blue-100 text-blue-700'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        ? 'bg-accent-coral/10 text-accent-coral border-accent-coral/30'
+                        : 'bg-accent-coral/10 text-accent-coral border-accent-coral/30'
+                      : 'bg-dark-700 text-text-secondary border-subtle hover:border-subtle-hover'
                   )}
                 >
                   {tab}
@@ -232,10 +232,10 @@ export default function ClaimPage() {
             {/* Evidence list */}
             {evidenceLoading ? (
               <div className="flex justify-center py-8">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600" />
+                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-accent-coral" />
               </div>
             ) : filteredEvidence.length === 0 ? (
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-text-muted">
                 No evidence yet. Be the first to add some!
               </div>
             ) : (
@@ -260,23 +260,23 @@ export default function ClaimPage() {
 
           {/* Quick stats */}
           <div className="card">
-            <h3 className="text-sm font-medium text-gray-500 mb-3">Quick Stats</h3>
+            <h3 className="text-sm font-medium text-text-muted mb-3">Quick Stats</h3>
             <div className="space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Votes</span>
-                <span className="font-medium text-gray-900">{currentClaim.vote_count}</span>
+                <span className="text-text-muted">Votes</span>
+                <span className="font-medium text-text-primary">{currentClaim.vote_count}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Evidence</span>
-                <span className="font-medium text-gray-900">{currentClaim.evidence_count}</span>
+                <span className="text-text-muted">Evidence</span>
+                <span className="font-medium text-text-primary">{currentClaim.evidence_count}</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Gradient</span>
-                <span className="font-medium text-gray-900">{(currentClaim.gradient * 100).toFixed(1)}%</span>
+                <span className="text-text-muted">Gradient</span>
+                <span className="font-medium text-text-primary">{(currentClaim.gradient * 100).toFixed(1)}%</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Complexity</span>
-                <span className={clsx('tag text-xs capitalize', complexityColors[currentClaim.complexity_tier])}>
+                <span className="text-text-muted">Complexity</span>
+                <span className={clsx('tag text-xs capitalize border', complexityColors[currentClaim.complexity_tier])}>
                   {currentClaim.complexity_tier}
                 </span>
               </div>
