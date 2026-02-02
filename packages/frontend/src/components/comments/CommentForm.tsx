@@ -51,14 +51,14 @@ export function CommentForm({
         disabled={isSubmitting}
         rows={isReply ? 2 : 3}
         className={clsx(
-          'w-full px-3 py-2 border border-gray-300 rounded-lg resize-none',
-          'focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
-          'disabled:bg-gray-100 disabled:cursor-not-allowed'
+          'w-full px-3 py-2 bg-dark-800 border border-subtle rounded-lg resize-none text-text-primary placeholder-text-muted',
+          'focus:ring-2 focus:ring-accent-coral/50 focus:border-accent-coral/30',
+          'disabled:bg-dark-700 disabled:cursor-not-allowed'
         )}
       />
 
       {error && (
-        <p className="text-sm text-red-600">{error}</p>
+        <p className="text-sm text-accent-coral">{error}</p>
       )}
 
       <div className="flex items-center justify-end gap-2">

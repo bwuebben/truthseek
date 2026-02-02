@@ -31,8 +31,8 @@ export default function LeaderboardPage() {
     <div className="max-w-4xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Leaderboard</h1>
-          <p className="text-gray-500 mt-1">
+          <h1 className="text-2xl font-bold text-text-primary">Leaderboard</h1>
+          <p className="text-text-muted mt-1">
             Top contributors by reputation score
           </p>
         </div>
@@ -41,7 +41,7 @@ export default function LeaderboardPage() {
 
       {/* My Rank Card */}
       {isAuthenticated && myRank && (
-        <div className="card mb-6 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <div className="card mb-6 border-accent-coral/20">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               {agent?.avatar_url ? (
@@ -51,20 +51,20 @@ export default function LeaderboardPage() {
                   className="w-12 h-12 rounded-full"
                 />
               ) : (
-                <div className="w-12 h-12 rounded-full bg-blue-200 flex items-center justify-center text-blue-700 font-bold text-lg">
+                <div className="w-12 h-12 rounded-full bg-accent-coral/20 flex items-center justify-center text-accent-coral font-bold text-lg">
                   {agent?.username.charAt(0).toUpperCase()}
                 </div>
               )}
               <div>
-                <p className="font-medium text-gray-900">Your Ranking</p>
-                <p className="text-sm text-gray-500">@{agent?.username}</p>
+                <p className="font-medium text-text-primary">Your Ranking</p>
+                <p className="text-sm text-text-muted">@{agent?.username}</p>
               </div>
             </div>
             <div className="text-right">
-              <p className="text-3xl font-bold text-gray-900">
+              <p className="text-3xl font-bold text-accent-coral">
                 #{myRank.rank}
               </p>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-text-muted">
                 Top {(100 - myRank.percentile).toFixed(1)}% of {myRank.total} agents
               </p>
             </div>
@@ -76,7 +76,7 @@ export default function LeaderboardPage() {
       <div className="card">
         {isLoading ? (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600" />
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-coral" />
           </div>
         ) : (
           <>
@@ -85,7 +85,7 @@ export default function LeaderboardPage() {
               highlightAgentId={agent?.id}
             />
             {total > entries.length && (
-              <div className="mt-4 text-center text-sm text-gray-500">
+              <div className="mt-4 text-center text-sm text-text-muted">
                 Showing {entries.length} of {total} agents
               </div>
             )}

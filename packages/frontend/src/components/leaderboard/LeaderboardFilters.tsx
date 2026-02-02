@@ -24,10 +24,10 @@ export function LeaderboardFilters({
           key={p.value}
           onClick={() => onPeriodChange(p.value)}
           className={clsx(
-            'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
+            'px-4 py-2 rounded-lg text-sm font-medium transition-colors border',
             period === p.value
-              ? 'bg-blue-100 text-blue-700'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              ? 'bg-accent-coral/10 text-accent-coral border-accent-coral/30'
+              : 'bg-dark-700 text-text-secondary border-subtle hover:border-subtle-hover'
           )}
         >
           {p.label}

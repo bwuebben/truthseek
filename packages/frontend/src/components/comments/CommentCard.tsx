@@ -74,7 +74,7 @@ export function CommentCard({
             className="w-8 h-8 rounded-full"
           />
         ) : (
-          <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm font-medium">
+          <div className="w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center text-text-muted text-sm font-medium">
             {comment.author.username.charAt(0).toUpperCase()}
           </div>
         )}
@@ -86,18 +86,18 @@ export function CommentCard({
         <div className="flex items-center gap-2 text-sm">
           <Link
             href={`/agents/${comment.author.id}`}
-            className="font-medium text-gray-900 hover:text-blue-600"
+            className="font-medium text-text-primary hover:text-accent-coral"
           >
             {comment.author.display_name || comment.author.username}
           </Link>
-          <span className="text-gray-400">·</span>
-          <span className="text-gray-500">
+          <span className="text-text-muted">·</span>
+          <span className="text-text-muted">
             {formatDistanceToNow(new Date(comment.created_at), { addSuffix: true })}
           </span>
           {comment.is_edited && (
             <>
-              <span className="text-gray-400">·</span>
-              <span className="text-gray-400 italic">edited</span>
+              <span className="text-text-muted">·</span>
+              <span className="text-text-muted italic">edited</span>
             </>
           )}
         </div>
@@ -108,7 +108,7 @@ export function CommentCard({
             <textarea
               value={editContent}
               onChange={(e) => setEditContent(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="w-full px-3 py-2 bg-dark-800 border border-subtle rounded-lg resize-none text-text-primary focus:ring-2 focus:ring-accent-coral/50 focus:border-accent-coral/30"
               rows={3}
               autoFocus
             />
@@ -130,8 +130,8 @@ export function CommentCard({
         ) : (
           <p
             className={clsx(
-              'mt-1 text-gray-700 whitespace-pre-wrap',
-              comment.is_deleted && 'italic text-gray-400'
+              'mt-1 text-text-secondary whitespace-pre-wrap',
+              comment.is_deleted && 'italic text-text-muted'
             )}
           >
             {comment.content}
@@ -147,8 +147,8 @@ export function CommentCard({
                 <button
                   onClick={() => handleVote('up')}
                   className={clsx(
-                    'p-1 rounded hover:bg-gray-100 transition-colors',
-                    comment.user_vote === 'up' && 'text-green-600'
+                    'p-1 rounded hover:bg-dark-700 transition-colors',
+                    comment.user_vote === 'up' && 'text-emerald-400'
                   )}
                   title="Upvote"
                 >
@@ -169,8 +169,8 @@ export function CommentCard({
                 <span
                   className={clsx(
                     'min-w-[1.5rem] text-center',
-                    comment.vote_score > 0 && 'text-green-600',
-                    comment.vote_score < 0 && 'text-red-600'
+                    comment.vote_score > 0 && 'text-emerald-400',
+                    comment.vote_score < 0 && 'text-accent-coral'
                   )}
                 >
                   {comment.vote_score}
@@ -178,8 +178,8 @@ export function CommentCard({
                 <button
                   onClick={() => handleVote('down')}
                   className={clsx(
-                    'p-1 rounded hover:bg-gray-100 transition-colors',
-                    comment.user_vote === 'down' && 'text-red-600'
+                    'p-1 rounded hover:bg-dark-700 transition-colors',
+                    comment.user_vote === 'down' && 'text-accent-coral'
                   )}
                   title="Downvote"
                 >
@@ -204,7 +204,7 @@ export function CommentCard({
             {canReply && (
               <button
                 onClick={() => setIsReplying(!isReplying)}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-text-muted hover:text-text-secondary"
               >
                 Reply
               </button>
@@ -215,13 +215,13 @@ export function CommentCard({
               <>
                 <button
                   onClick={() => setIsEditing(true)}
-                  className="text-gray-500 hover:text-gray-700"
+                  className="text-text-muted hover:text-text-secondary"
                 >
                   Edit
                 </button>
                 <button
                   onClick={handleDelete}
-                  className="text-gray-500 hover:text-red-600"
+                  className="text-text-muted hover:text-accent-coral"
                 >
                   Delete
                 </button>
@@ -250,7 +250,7 @@ export function CommentCard({
             {comment.replies.length > 3 && !showReplies ? (
               <button
                 onClick={() => setShowReplies(true)}
-                className="text-sm text-blue-600 hover:text-blue-700"
+                className="text-sm text-accent-coral hover:text-accent-coral-hover"
               >
                 Show {comment.replies.length} replies
               </button>

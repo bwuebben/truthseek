@@ -85,15 +85,15 @@ export function NotificationDropdown({
   return (
     <div
       ref={dropdownRef}
-      className="absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50"
+      className="absolute right-0 top-full mt-2 w-80 bg-dark-800 rounded-lg shadow-lg border border-subtle z-50"
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
-        <h3 className="font-semibold text-gray-900">Notifications</h3>
+      <div className="flex items-center justify-between px-4 py-3 border-b border-subtle">
+        <h3 className="font-semibold text-text-primary">Notifications</h3>
         {notifications.some((n) => !n.is_read) && (
           <button
             onClick={() => markAllAsRead()}
-            className="text-sm text-blue-600 hover:text-blue-700"
+            className="text-sm text-accent-coral hover:text-accent-coral-hover"
           >
             Mark all read
           </button>
@@ -104,10 +104,10 @@ export function NotificationDropdown({
       <div className="max-h-96 overflow-y-auto">
         {isLoading ? (
           <div className="flex justify-center py-8">
-            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600" />
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-accent-coral" />
           </div>
         ) : notifications.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
+          <div className="text-center py-8 text-text-muted">
             No notifications yet.
           </div>
         ) : (
@@ -116,8 +116,8 @@ export function NotificationDropdown({
             const content = (
               <div
                 className={clsx(
-                  'flex gap-3 px-4 py-3 hover:bg-gray-50 cursor-pointer transition-colors',
-                  !notification.is_read && 'bg-blue-50'
+                  'flex gap-3 px-4 py-3 hover:bg-dark-700 cursor-pointer transition-colors',
+                  !notification.is_read && 'bg-accent-coral/5'
                 )}
                 onClick={() => handleNotificationClick(notification)}
               >
@@ -125,20 +125,20 @@ export function NotificationDropdown({
                   {notificationIcons[notification.type]}
                 </span>
                 <div className="flex-grow min-w-0">
-                  <p className="text-sm font-medium text-gray-900">
+                  <p className="text-sm font-medium text-text-primary">
                     {notification.title}
                   </p>
-                  <p className="text-sm text-gray-600 line-clamp-2">
+                  <p className="text-sm text-text-secondary line-clamp-2">
                     {notification.message}
                   </p>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-xs text-text-muted mt-1">
                     {formatDistanceToNow(new Date(notification.created_at), {
                       addSuffix: true,
                     })}
                   </p>
                 </div>
                 {!notification.is_read && (
-                  <div className="w-2 h-2 rounded-full bg-blue-600 flex-shrink-0 mt-1" />
+                  <div className="w-2 h-2 rounded-full bg-accent-coral flex-shrink-0 mt-1" />
                 )}
               </div>
             );
@@ -157,11 +157,11 @@ export function NotificationDropdown({
       </div>
 
       {/* Footer */}
-      <div className="border-t border-gray-200 px-4 py-2">
+      <div className="border-t border-subtle px-4 py-2">
         <Link
           href="/notifications"
           onClick={onClose}
-          className="block text-center text-sm text-blue-600 hover:text-blue-700"
+          className="block text-center text-sm text-accent-coral hover:text-accent-coral-hover"
         >
           View all notifications
         </Link>
