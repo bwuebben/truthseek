@@ -11,37 +11,37 @@ interface ApiEndpointProps {
 }
 
 const methodColors: Record<HttpMethod, string> = {
-  GET: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  POST: 'bg-blue-100 text-blue-700 border-blue-200',
-  PUT: 'bg-amber-100 text-amber-700 border-amber-200',
-  PATCH: 'bg-orange-100 text-orange-700 border-orange-200',
-  DELETE: 'bg-red-100 text-red-700 border-red-200',
+  GET: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
+  POST: 'bg-accent-cyan/10 text-accent-cyan border-accent-cyan/30',
+  PUT: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
+  PATCH: 'bg-orange-500/10 text-orange-400 border-orange-500/30',
+  DELETE: 'bg-accent-coral/10 text-accent-coral border-accent-coral/30',
 };
 
 export function ApiEndpoint({ method, path, description, children }: ApiEndpointProps) {
   return (
-    <div className="my-6 rounded-lg border border-gray-200 overflow-hidden">
+    <div className="my-6 rounded-lg border border-subtle overflow-hidden">
       {/* Header */}
-      <div className="bg-gray-50 px-4 py-3 flex items-center gap-3 border-b border-gray-200">
+      <div className="bg-dark-700 px-4 py-3 flex items-center gap-3 border-b border-subtle">
         <span className={clsx(
           'px-2.5 py-1 text-xs font-bold rounded border',
           methodColors[method]
         )}>
           {method}
         </span>
-        <code className="text-sm font-mono text-gray-800">{path}</code>
+        <code className="text-sm font-mono text-text-primary">{path}</code>
       </div>
 
       {/* Description */}
       {description && (
-        <div className="px-4 py-3 text-sm text-gray-600 bg-white border-b border-gray-100">
+        <div className="px-4 py-3 text-sm text-text-secondary bg-dark-800 border-b border-subtle">
           {description}
         </div>
       )}
 
       {/* Content (params, body, response) */}
       {children && (
-        <div className="p-4 bg-white text-sm">
+        <div className="p-4 bg-dark-800 text-sm">
           {children}
         </div>
       )}
@@ -62,27 +62,27 @@ interface ParamTableProps {
 export function ParamTable({ title, params }: ParamTableProps) {
   return (
     <div className="my-4">
-      {title && <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">{title}</h5>}
+      {title && <h5 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">{title}</h5>}
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm">
           <thead>
-            <tr className="border-b border-gray-100">
-              <th className="text-left py-2 pr-4 font-medium text-gray-600">Parameter</th>
-              <th className="text-left py-2 pr-4 font-medium text-gray-600">Type</th>
-              <th className="text-left py-2 font-medium text-gray-600">Description</th>
+            <tr className="border-b border-subtle">
+              <th className="text-left py-2 pr-4 font-medium text-text-secondary">Parameter</th>
+              <th className="text-left py-2 pr-4 font-medium text-text-secondary">Type</th>
+              <th className="text-left py-2 font-medium text-text-secondary">Description</th>
             </tr>
           </thead>
           <tbody>
             {params.map((param) => (
-              <tr key={param.name} className="border-b border-gray-50">
+              <tr key={param.name} className="border-b border-subtle">
                 <td className="py-2 pr-4">
-                  <code className="text-xs bg-gray-100 px-1.5 py-0.5 rounded">{param.name}</code>
-                  {param.required && <span className="ml-1 text-red-500 text-xs">*</span>}
+                  <code className="text-xs bg-dark-700 px-1.5 py-0.5 rounded text-accent-coral">{param.name}</code>
+                  {param.required && <span className="ml-1 text-accent-coral text-xs">*</span>}
                 </td>
                 <td className="py-2 pr-4">
-                  <span className="text-xs text-gray-500 font-mono">{param.type}</span>
+                  <span className="text-xs text-text-muted font-mono">{param.type}</span>
                 </td>
-                <td className="py-2 text-gray-600">{param.description}</td>
+                <td className="py-2 text-text-secondary">{param.description}</td>
               </tr>
             ))}
           </tbody>
