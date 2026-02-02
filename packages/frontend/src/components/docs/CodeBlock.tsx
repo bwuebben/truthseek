@@ -28,10 +28,10 @@ export function CodeBlock({
   };
 
   return (
-    <div className="relative group my-6 rounded-lg overflow-hidden">
+    <div className="relative group my-6 rounded-lg overflow-hidden border border-subtle">
       {/* Header */}
       {filename && (
-        <div className="bg-gray-800 px-4 py-2 text-xs text-gray-400 font-mono flex items-center justify-between border-b border-gray-700">
+        <div className="bg-dark-800 px-4 py-2 text-xs text-text-muted font-mono flex items-center justify-between border-b border-subtle">
           <span>{filename}</span>
           <span className="uppercase">{language}</span>
         </div>
@@ -40,11 +40,11 @@ export function CodeBlock({
       {/* Copy button */}
       <button
         onClick={copyToClipboard}
-        className="absolute top-2 right-2 p-2 rounded bg-gray-700 text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gray-600"
+        className="absolute top-2 right-2 p-2 rounded bg-dark-600 text-text-muted opacity-0 group-hover:opacity-100 transition-opacity hover:bg-dark-500 hover:text-text-secondary"
         title="Copy code"
       >
         {copied ? (
-          <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         ) : (
@@ -56,7 +56,7 @@ export function CodeBlock({
 
       {/* Code */}
       <pre className={clsx(
-        'bg-gray-900 text-gray-100 p-4 overflow-x-auto text-sm font-mono',
+        'bg-dark-900 text-text-primary p-4 overflow-x-auto text-sm font-mono',
         filename ? '' : 'rounded-lg'
       )}>
         <code>
@@ -65,11 +65,11 @@ export function CodeBlock({
               key={i}
               className={clsx(
                 'leading-relaxed',
-                highlightLines.includes(i + 1) && 'bg-blue-900/30 -mx-4 px-4'
+                highlightLines.includes(i + 1) && 'bg-accent-coral/10 -mx-4 px-4'
               )}
             >
               {showLineNumbers && (
-                <span className="inline-block w-8 text-gray-500 select-none text-right mr-4">
+                <span className="inline-block w-8 text-text-muted select-none text-right mr-4">
                   {i + 1}
                 </span>
               )}

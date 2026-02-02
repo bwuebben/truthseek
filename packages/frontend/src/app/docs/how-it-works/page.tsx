@@ -8,14 +8,14 @@ export default function HowItWorksPage() {
     <div>
       {/* Header */}
       <div className="not-prose mb-8">
-        <div className="inline-flex items-center gap-2 text-sm text-blue-600 font-medium mb-2">
+        <div className="inline-flex items-center gap-2 text-sm text-accent-coral font-medium mb-2">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
           Getting Started
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">How It Works</h1>
-        <p className="text-lg text-gray-600 max-w-3xl">
+        <h1 className="text-3xl font-bold text-text-primary mb-4">How It Works</h1>
+        <p className="text-lg text-text-secondary max-w-3xl">
           truthseek is a distributed epistemic verification platform where communities
           collectively assess the truth value of claims through evidence and weighted voting.
         </p>
@@ -24,7 +24,7 @@ export default function HowItWorksPage() {
       {/* Core flow visualization */}
       <div className="not-prose my-10">
         <div className="relative">
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 via-purple-500 to-green-500" />
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent-coral via-accent-cyan to-emerald-500" />
 
           {[
             {
@@ -32,7 +32,7 @@ export default function HowItWorksPage() {
               title: 'Submit a Claim',
               desc: 'Anyone can submit a verifiable claim. Claims should be specific, measurable, and falsifiable.',
               icon: '📝',
-              color: 'blue',
+              color: 'coral',
               example: '"The Great Wall of China is visible from space with the naked eye."',
             },
             {
@@ -40,7 +40,7 @@ export default function HowItWorksPage() {
               title: 'Submit Evidence',
               desc: 'Community members submit evidence that supports, opposes, or provides neutral context for the claim.',
               icon: '🔍',
-              color: 'purple',
+              color: 'cyan',
               example: 'NASA astronaut statements, scientific studies, photographic analysis...',
             },
             {
@@ -48,7 +48,7 @@ export default function HowItWorksPage() {
               title: 'Cast Votes',
               desc: 'Participants evaluate the claim based on evidence and cast a vote from 0.0 (false) to 1.0 (true).',
               icon: '🗳️',
-              color: 'indigo',
+              color: 'coral',
               example: 'Vote 0.15 — lean strongly toward false based on evidence',
             },
             {
@@ -56,7 +56,7 @@ export default function HowItWorksPage() {
               title: 'Weighted Consensus',
               desc: 'Votes are weighted by reputation. Higher reputation = more influence on the final gradient.',
               icon: '⚖️',
-              color: 'violet',
+              color: 'cyan',
               example: 'Gradient = Σ(vote × weight) / Σ(weight)',
             },
             {
@@ -64,20 +64,20 @@ export default function HowItWorksPage() {
               title: 'Reach Consensus',
               desc: 'When the gradient crosses 0.8 (true) or falls below 0.2 (false), consensus is reached.',
               icon: '✅',
-              color: 'green',
+              color: 'emerald',
               example: 'Final gradient: 0.12 — Consensus FALSE',
             },
           ].map((item) => (
             <div key={item.step} className="relative flex items-start gap-6 mb-10">
-              <div className={`flex-shrink-0 w-16 h-16 bg-${item.color}-100 rounded-xl flex items-center justify-center text-2xl border-4 border-white shadow-lg z-10`}>
+              <div className="flex-shrink-0 w-16 h-16 bg-dark-700 rounded-xl flex items-center justify-center text-2xl border border-subtle shadow-lg z-10">
                 {item.icon}
               </div>
               <div className="flex-1 pt-2">
-                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                <h3 className="text-lg font-semibold text-text-primary mb-1">
                   {item.step}. {item.title}
                 </h3>
-                <p className="text-gray-600 mb-3">{item.desc}</p>
-                <div className="p-3 bg-gray-50 rounded-lg text-sm text-gray-500 italic">
+                <p className="text-text-secondary mb-3">{item.desc}</p>
+                <div className="p-3 bg-dark-700 rounded-lg text-sm text-text-muted italic border border-subtle">
                   {item.example}
                 </div>
               </div>
@@ -114,13 +114,13 @@ export default function HowItWorksPage() {
           <Link
             key={item.title}
             href={item.link}
-            className="p-5 bg-white rounded-xl border border-gray-200 hover:border-blue-300 hover:shadow-md transition-all group"
+            className="p-5 bg-dark-800 rounded-xl border border-subtle hover:border-accent-coral/30 hover:shadow-glow-coral transition-all group"
           >
-            <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+            <h3 className="font-semibold text-text-primary group-hover:text-accent-coral transition-colors">
               {item.title}
             </h3>
-            <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
-            <div className="mt-3 text-sm text-blue-600 font-medium flex items-center gap-1">
+            <p className="text-sm text-text-secondary mt-1">{item.desc}</p>
+            <div className="mt-3 text-sm text-accent-coral font-medium flex items-center gap-1">
               Learn more
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -138,31 +138,31 @@ export default function HowItWorksPage() {
         influence on outcomes.
       </p>
 
-      <div className="not-prose my-8 p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+      <div className="not-prose my-8 p-6 bg-dark-800 rounded-xl border border-subtle">
         <div className="flex items-center gap-8 flex-wrap justify-center">
           <div className="text-center">
             <div className="text-4xl mb-2">👤</div>
-            <div className="text-sm text-gray-600">New User</div>
-            <div className="text-2xl font-bold text-gray-900">1x</div>
-            <div className="text-xs text-gray-500">weight</div>
+            <div className="text-sm text-text-muted">New User</div>
+            <div className="text-2xl font-bold text-text-primary">1x</div>
+            <div className="text-xs text-text-muted">weight</div>
           </div>
-          <svg className="w-8 h-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-8 h-8 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
           <div className="text-center">
             <div className="text-4xl mb-2">⭐</div>
-            <div className="text-sm text-gray-600">Established</div>
-            <div className="text-2xl font-bold text-blue-600">3x</div>
-            <div className="text-xs text-gray-500">weight</div>
+            <div className="text-sm text-text-muted">Established</div>
+            <div className="text-2xl font-bold text-accent-cyan">3x</div>
+            <div className="text-xs text-text-muted">weight</div>
           </div>
-          <svg className="w-8 h-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-8 h-8 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
           <div className="text-center">
             <div className="text-4xl mb-2">👑</div>
-            <div className="text-sm text-gray-600">Trusted</div>
-            <div className="text-2xl font-bold text-yellow-600">8x</div>
-            <div className="text-xs text-gray-500">weight</div>
+            <div className="text-sm text-text-muted">Trusted</div>
+            <div className="text-2xl font-bold text-accent-coral">8x</div>
+            <div className="text-xs text-text-muted">weight</div>
           </div>
         </div>
       </div>
@@ -175,52 +175,52 @@ export default function HowItWorksPage() {
       <h2>What Makes a Good Claim?</h2>
 
       <div className="not-prose grid md:grid-cols-3 gap-4 my-6">
-        <div className="p-4 bg-green-50 rounded-lg border border-green-100">
+        <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
           <div className="text-2xl mb-2">✅</div>
-          <h4 className="font-semibold text-green-900">Verifiable</h4>
-          <p className="text-sm text-green-700 mt-1">Can be evaluated with evidence</p>
+          <h4 className="font-semibold text-emerald-400">Verifiable</h4>
+          <p className="text-sm text-text-secondary mt-1">Can be evaluated with evidence</p>
         </div>
-        <div className="p-4 bg-green-50 rounded-lg border border-green-100">
+        <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
           <div className="text-2xl mb-2">✅</div>
-          <h4 className="font-semibold text-green-900">Specific</h4>
-          <p className="text-sm text-green-700 mt-1">Clear and unambiguous</p>
+          <h4 className="font-semibold text-emerald-400">Specific</h4>
+          <p className="text-sm text-text-secondary mt-1">Clear and unambiguous</p>
         </div>
-        <div className="p-4 bg-green-50 rounded-lg border border-green-100">
+        <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/30">
           <div className="text-2xl mb-2">✅</div>
-          <h4 className="font-semibold text-green-900">Falsifiable</h4>
-          <p className="text-sm text-green-700 mt-1">Could be proven wrong</p>
+          <h4 className="font-semibold text-emerald-400">Falsifiable</h4>
+          <p className="text-sm text-text-secondary mt-1">Could be proven wrong</p>
         </div>
       </div>
 
       <h3>Examples</h3>
 
       <div className="not-prose space-y-3 my-6">
-        <div className="p-4 bg-green-50 rounded-lg border border-green-200 flex items-start gap-3">
+        <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/30 flex items-start gap-3">
           <span className="text-xl">✅</span>
           <div>
-            <div className="font-medium text-green-900">&quot;The human body contains approximately 206 bones.&quot;</div>
-            <div className="text-sm text-green-700 mt-1">Specific, verifiable through medical science</div>
+            <div className="font-medium text-emerald-400">&quot;The human body contains approximately 206 bones.&quot;</div>
+            <div className="text-sm text-text-secondary mt-1">Specific, verifiable through medical science</div>
           </div>
         </div>
-        <div className="p-4 bg-red-50 rounded-lg border border-red-200 flex items-start gap-3">
+        <div className="p-4 bg-accent-coral/10 rounded-lg border border-accent-coral/30 flex items-start gap-3">
           <span className="text-xl">❌</span>
           <div>
-            <div className="font-medium text-red-900">&quot;Pizza is the best food.&quot;</div>
-            <div className="text-sm text-red-700 mt-1">Subjective opinion, not verifiable</div>
+            <div className="font-medium text-accent-coral">&quot;Pizza is the best food.&quot;</div>
+            <div className="text-sm text-text-secondary mt-1">Subjective opinion, not verifiable</div>
           </div>
         </div>
-        <div className="p-4 bg-green-50 rounded-lg border border-green-200 flex items-start gap-3">
+        <div className="p-4 bg-emerald-500/10 rounded-lg border border-emerald-500/30 flex items-start gap-3">
           <span className="text-xl">✅</span>
           <div>
-            <div className="font-medium text-green-900">&quot;Regular exercise reduces the risk of heart disease.&quot;</div>
-            <div className="text-sm text-green-700 mt-1">Supported by medical research</div>
+            <div className="font-medium text-emerald-400">&quot;Regular exercise reduces the risk of heart disease.&quot;</div>
+            <div className="text-sm text-text-secondary mt-1">Supported by medical research</div>
           </div>
         </div>
-        <div className="p-4 bg-red-50 rounded-lg border border-red-200 flex items-start gap-3">
+        <div className="p-4 bg-accent-coral/10 rounded-lg border border-accent-coral/30 flex items-start gap-3">
           <span className="text-xl">❌</span>
           <div>
-            <div className="font-medium text-red-900">&quot;Something big will happen next year.&quot;</div>
-            <div className="text-sm text-red-700 mt-1">Too vague, unfalsifiable</div>
+            <div className="font-medium text-accent-coral">&quot;Something big will happen next year.&quot;</div>
+            <div className="text-sm text-text-secondary mt-1">Too vague, unfalsifiable</div>
           </div>
         </div>
       </div>
@@ -228,7 +228,7 @@ export default function HowItWorksPage() {
       <h2>Your Journey</h2>
 
       <div className="not-prose my-8">
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-gray-900 to-blue-900 p-8">
+        <div className="relative overflow-hidden rounded-xl bg-dark-800 p-8 border border-subtle">
           <div className="absolute inset-0 opacity-10">
             <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
               <defs>
@@ -247,11 +247,11 @@ export default function HowItWorksPage() {
               { step: 'Lead', rep: '500+', desc: 'Shape the community' },
             ].map((item, i) => (
               <div key={item.step} className="relative">
-                <div className="text-3xl font-bold text-white mb-1">{item.step}</div>
-                <div className="text-sm text-blue-200 mb-2">{item.rep} rep</div>
-                <div className="text-xs text-blue-300">{item.desc}</div>
+                <div className="text-3xl font-bold text-text-primary mb-1">{item.step}</div>
+                <div className="text-sm text-accent-coral mb-2">{item.rep} rep</div>
+                <div className="text-xs text-text-muted">{item.desc}</div>
                 {i < 3 && (
-                  <div className="hidden md:block absolute top-4 -right-3 text-blue-400">→</div>
+                  <div className="hidden md:block absolute top-4 -right-3 text-text-muted">→</div>
                 )}
               </div>
             ))}
@@ -269,7 +269,7 @@ export default function HowItWorksPage() {
       <div className="not-prose flex flex-wrap gap-3 my-6">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent-coral text-white rounded-lg font-medium hover:bg-accent-coral-hover transition-colors"
         >
           Explore Claims
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -278,7 +278,7 @@ export default function HowItWorksPage() {
         </Link>
         <Link
           href="/docs/gradient-algorithm"
-          className="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors"
+          className="inline-flex items-center gap-2 px-5 py-2.5 bg-dark-700 text-text-primary rounded-lg font-medium hover:bg-dark-600 transition-colors border border-subtle"
         >
           Learn the Algorithm
         </Link>

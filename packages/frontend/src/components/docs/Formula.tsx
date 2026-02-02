@@ -27,7 +27,7 @@ export function Formula({ math, display = false, className = '' }: FormulaProps)
   if (display) {
     return (
       <div
-        className={`my-6 py-4 px-6 bg-gradient-to-r from-gray-50 to-white rounded-lg border border-gray-100 overflow-x-auto ${className}`}
+        className={`my-6 py-4 px-6 bg-dark-700 rounded-lg border border-subtle overflow-x-auto ${className}`}
         dangerouslySetInnerHTML={{ __html: html }}
       />
     );

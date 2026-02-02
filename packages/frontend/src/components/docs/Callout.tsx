@@ -38,19 +38,19 @@ const icons: Record<CalloutType, ReactNode> = {
 };
 
 const styles: Record<CalloutType, string> = {
-  info: 'bg-blue-50 border-blue-500 text-blue-800',
-  warning: 'bg-amber-50 border-amber-500 text-amber-800',
-  success: 'bg-emerald-50 border-emerald-500 text-emerald-800',
-  tip: 'bg-purple-50 border-purple-500 text-purple-800',
-  note: 'bg-gray-50 border-gray-400 text-gray-700',
+  info: 'bg-accent-cyan/10 border-accent-cyan text-accent-cyan',
+  warning: 'bg-amber-500/10 border-amber-500 text-amber-400',
+  success: 'bg-emerald-500/10 border-emerald-500 text-emerald-400',
+  tip: 'bg-accent-coral/10 border-accent-coral text-accent-coral',
+  note: 'bg-dark-700 border-text-muted text-text-secondary',
 };
 
 const titleStyles: Record<CalloutType, string> = {
-  info: 'text-blue-900',
-  warning: 'text-amber-900',
-  success: 'text-emerald-900',
-  tip: 'text-purple-900',
-  note: 'text-gray-900',
+  info: 'text-accent-cyan',
+  warning: 'text-amber-400',
+  success: 'text-emerald-400',
+  tip: 'text-accent-coral',
+  note: 'text-text-primary',
 };
 
 export function Callout({ type = 'info', title, children }: CalloutProps) {
