@@ -9,14 +9,14 @@ export default function LearningScorePage() {
     <div>
       {/* Header */}
       <div className="not-prose mb-8">
-        <div className="inline-flex items-center gap-2 text-sm text-blue-600 font-medium mb-2">
+        <div className="inline-flex items-center gap-2 text-sm text-accent-coral font-medium mb-2">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
           </svg>
           Core Concepts
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Learning Score</h1>
-        <p className="text-lg text-gray-600 max-w-3xl">
+        <h1 className="text-3xl font-bold text-text-primary mb-4">Learning Score</h1>
+        <p className="text-lg text-text-secondary max-w-3xl">
           The Learning Score measures your epistemic development — how well you
           identify truth and adapt your judgment over time. Unlike reputation, which
           measures total contribution, learning score focuses on accuracy and improvement.
@@ -36,23 +36,23 @@ export default function LearningScorePage() {
       </p>
 
       <div className="not-prose grid md:grid-cols-3 gap-4 my-6">
-        <div className="p-5 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
+        <div className="p-5 bg-accent-coral/10 rounded-xl border border-accent-coral/30">
           <div className="text-3xl mb-2">🎯</div>
-          <h4 className="font-semibold text-gray-900 mb-1">Accuracy</h4>
-          <p className="text-sm text-gray-600">How often your votes align with eventual consensus</p>
-          <div className="mt-3 text-xs font-mono text-blue-700 bg-blue-50 px-2 py-1 rounded">50% weight</div>
+          <h4 className="font-semibold text-text-primary mb-1">Accuracy</h4>
+          <p className="text-sm text-text-secondary">How often your votes align with eventual consensus</p>
+          <div className="mt-3 text-xs font-mono text-accent-coral bg-accent-coral/20 px-2 py-1 rounded">50% weight</div>
         </div>
-        <div className="p-5 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl border border-purple-200">
+        <div className="p-5 bg-accent-cyan/10 rounded-xl border border-accent-cyan/30">
           <div className="text-3xl mb-2">📊</div>
-          <h4 className="font-semibold text-gray-900 mb-1">Consistency</h4>
-          <p className="text-sm text-gray-600">How stable your accuracy is over time</p>
-          <div className="mt-3 text-xs font-mono text-purple-700 bg-purple-50 px-2 py-1 rounded">25% weight</div>
+          <h4 className="font-semibold text-text-primary mb-1">Consistency</h4>
+          <p className="text-sm text-text-secondary">How stable your accuracy is over time</p>
+          <div className="mt-3 text-xs font-mono text-accent-cyan bg-accent-cyan/20 px-2 py-1 rounded">25% weight</div>
         </div>
-        <div className="p-5 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl border border-emerald-200">
+        <div className="p-5 bg-emerald-500/10 rounded-xl border border-emerald-500/30">
           <div className="text-3xl mb-2">📈</div>
-          <h4 className="font-semibold text-gray-900 mb-1">Improvement</h4>
-          <p className="text-sm text-gray-600">Whether your accuracy is trending upward</p>
-          <div className="mt-3 text-xs font-mono text-emerald-700 bg-emerald-50 px-2 py-1 rounded">25% weight</div>
+          <h4 className="font-semibold text-text-primary mb-1">Improvement</h4>
+          <p className="text-sm text-text-secondary">Whether your accuracy is trending upward</p>
+          <div className="mt-3 text-xs font-mono text-emerald-400 bg-emerald-500/20 px-2 py-1 rounded">25% weight</div>
         </div>
       </div>
 
@@ -80,9 +80,9 @@ export default function LearningScorePage() {
 
       <p>A vote is considered correct when:</p>
 
-      <div className="not-prose my-6 p-5 bg-gray-50 rounded-xl font-mono text-sm">
-        <div className="text-gray-500 mb-2">// Vote correctness determination</div>
-        <div className="text-gray-900">
+      <div className="not-prose my-6 p-5 bg-dark-700 rounded-xl font-mono text-sm border border-subtle">
+        <div className="text-text-muted mb-2">// Vote correctness determination</div>
+        <div className="text-text-primary">
           is_correct = (vote &gt; 0.5 AND gradient &gt; 0.8) OR<br/>
           <span className="ml-12">(vote &lt; 0.5 AND gradient &lt; 0.2)</span>
         </div>
@@ -121,63 +121,63 @@ export default function LearningScorePage() {
 
       <div className="not-prose overflow-x-auto my-6">
         <table className="min-w-full text-sm">
-          <thead className="bg-gray-50">
+          <thead className="bg-dark-700">
             <tr>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Score Range</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Interpretation</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Percentile</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Score Range</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Interpretation</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Percentile</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-gray-100">
+            <tr className="border-b border-subtle">
               <td className="py-3 px-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-green-500" />
-                  <span className="font-mono">0.8 - 1.0</span>
+                  <div className="w-3 h-3 rounded-full bg-emerald-500" />
+                  <span className="font-mono text-text-primary">0.8 - 1.0</span>
                 </div>
               </td>
-              <td className="py-3 px-4 text-gray-700">Excellent epistemic judgment</td>
-              <td className="py-3 px-4 text-gray-600">Top 10%</td>
+              <td className="py-3 px-4 text-text-secondary">Excellent epistemic judgment</td>
+              <td className="py-3 px-4 text-text-muted">Top 10%</td>
             </tr>
-            <tr className="border-b border-gray-100">
+            <tr className="border-b border-subtle">
               <td className="py-3 px-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-blue-500" />
-                  <span className="font-mono">0.65 - 0.8</span>
+                  <div className="w-3 h-3 rounded-full bg-accent-cyan" />
+                  <span className="font-mono text-text-primary">0.65 - 0.8</span>
                 </div>
               </td>
-              <td className="py-3 px-4 text-gray-700">Strong, reliable judgment</td>
-              <td className="py-3 px-4 text-gray-600">Top 30%</td>
+              <td className="py-3 px-4 text-text-secondary">Strong, reliable judgment</td>
+              <td className="py-3 px-4 text-text-muted">Top 30%</td>
             </tr>
-            <tr className="border-b border-gray-100">
+            <tr className="border-b border-subtle">
               <td className="py-3 px-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                  <span className="font-mono">0.5 - 0.65</span>
+                  <div className="w-3 h-3 rounded-full bg-amber-500" />
+                  <span className="font-mono text-text-primary">0.5 - 0.65</span>
                 </div>
               </td>
-              <td className="py-3 px-4 text-gray-700">Developing good instincts</td>
-              <td className="py-3 px-4 text-gray-600">Average</td>
+              <td className="py-3 px-4 text-text-secondary">Developing good instincts</td>
+              <td className="py-3 px-4 text-text-muted">Average</td>
             </tr>
-            <tr className="border-b border-gray-100">
+            <tr className="border-b border-subtle">
               <td className="py-3 px-4">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full bg-orange-500" />
-                  <span className="font-mono">0.35 - 0.5</span>
+                  <span className="font-mono text-text-primary">0.35 - 0.5</span>
                 </div>
               </td>
-              <td className="py-3 px-4 text-gray-700">Room for improvement</td>
-              <td className="py-3 px-4 text-gray-600">Below average</td>
+              <td className="py-3 px-4 text-text-secondary">Room for improvement</td>
+              <td className="py-3 px-4 text-text-muted">Below average</td>
             </tr>
-            <tr className="border-b border-gray-100">
+            <tr className="border-b border-subtle">
               <td className="py-3 px-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500" />
-                  <span className="font-mono">0.0 - 0.35</span>
+                  <div className="w-3 h-3 rounded-full bg-accent-coral" />
+                  <span className="font-mono text-text-primary">0.0 - 0.35</span>
                 </div>
               </td>
-              <td className="py-3 px-4 text-gray-700">Needs attention</td>
-              <td className="py-3 px-4 text-gray-600">Bottom 20%</td>
+              <td className="py-3 px-4 text-text-secondary">Needs attention</td>
+              <td className="py-3 px-4 text-text-muted">Bottom 20%</td>
             </tr>
           </tbody>
         </table>
@@ -189,23 +189,23 @@ export default function LearningScorePage() {
 
       <div className="not-prose space-y-3 my-6">
         {[
-          { score: '80%+', color: 'green', insight: 'You have excellent judgment — you correctly identify claim truth values consistently.' },
-          { score: '65-80%', color: 'blue', insight: 'You tend to identify true claims early and make sound judgments.' },
-          { score: '50-65%', color: 'yellow', insight: "You're developing good epistemic instincts. Keep engaging to improve." },
-          { score: '<50%', color: 'red', insight: 'Consider reviewing evidence more carefully before voting.' },
+          { score: '80%+', color: 'emerald', insight: 'You have excellent judgment — you correctly identify claim truth values consistently.' },
+          { score: '65-80%', color: 'cyan', insight: 'You tend to identify true claims early and make sound judgments.' },
+          { score: '50-65%', color: 'amber', insight: "You're developing good epistemic instincts. Keep engaging to improve." },
+          { score: '<50%', color: 'coral', insight: 'Consider reviewing evidence more carefully before voting.' },
         ].map((item) => (
           <div
             key={item.score}
             className={`p-4 rounded-lg border-l-4 ${
-              item.color === 'green' ? 'bg-green-50 border-green-500' :
-              item.color === 'blue' ? 'bg-blue-50 border-blue-500' :
-              item.color === 'yellow' ? 'bg-yellow-50 border-yellow-500' :
-              'bg-red-50 border-red-500'
+              item.color === 'emerald' ? 'bg-emerald-500/10 border-emerald-500' :
+              item.color === 'cyan' ? 'bg-accent-cyan/10 border-accent-cyan' :
+              item.color === 'amber' ? 'bg-amber-500/10 border-amber-500' :
+              'bg-accent-coral/10 border-accent-coral'
             }`}
           >
             <div className="flex items-center gap-3">
-              <span className="font-mono text-sm font-medium text-gray-700">{item.score}</span>
-              <span className="text-gray-600 text-sm">{item.insight}</span>
+              <span className="font-mono text-sm font-medium text-text-secondary">{item.score}</span>
+              <span className="text-text-secondary text-sm">{item.insight}</span>
             </div>
           </div>
         ))}
@@ -217,26 +217,36 @@ export default function LearningScorePage() {
         Your accuracy is also tracked by topic area, creating an expertise profile:
       </p>
 
-      <div className="not-prose my-6 p-5 bg-gradient-to-br from-gray-50 to-white rounded-xl border border-gray-200">
-        <h4 className="font-semibold text-gray-900 mb-4">Example Expertise Profile</h4>
+      <div className="not-prose my-6 p-5 bg-dark-800 rounded-xl border border-subtle">
+        <h4 className="font-semibold text-text-primary mb-4">Example Expertise Profile</h4>
         <div className="space-y-3">
           {[
-            { tag: 'Science', accuracy: 85, color: 'blue' },
-            { tag: 'Health', accuracy: 78, color: 'green' },
-            { tag: 'Technology', accuracy: 72, color: 'purple' },
+            { tag: 'Science', accuracy: 85, color: 'coral' },
+            { tag: 'Health', accuracy: 78, color: 'emerald' },
+            { tag: 'Technology', accuracy: 72, color: 'cyan' },
             { tag: 'History', accuracy: 65, color: 'amber' },
           ].map((item) => (
             <div key={item.tag} className="flex items-center gap-3">
-              <span className={`px-2 py-1 text-xs font-medium rounded bg-${item.color}-100 text-${item.color}-700`}>
+              <span className={`px-2 py-1 text-xs font-medium rounded ${
+                item.color === 'coral' ? 'bg-accent-coral/20 text-accent-coral' :
+                item.color === 'emerald' ? 'bg-emerald-500/20 text-emerald-400' :
+                item.color === 'cyan' ? 'bg-accent-cyan/20 text-accent-cyan' :
+                'bg-amber-500/20 text-amber-400'
+              }`}>
                 #{item.tag}
               </span>
-              <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className="flex-1 h-2 bg-dark-700 rounded-full overflow-hidden">
                 <div
-                  className={`h-full bg-${item.color}-500 rounded-full`}
+                  className={`h-full rounded-full ${
+                    item.color === 'coral' ? 'bg-accent-coral' :
+                    item.color === 'emerald' ? 'bg-emerald-500' :
+                    item.color === 'cyan' ? 'bg-accent-cyan' :
+                    'bg-amber-500'
+                  }`}
                   style={{ width: `${item.accuracy}%` }}
                 />
               </div>
-              <span className="text-sm font-mono text-gray-600">{item.accuracy}%</span>
+              <span className="text-sm font-mono text-text-muted">{item.accuracy}%</span>
             </div>
           ))}
         </div>
@@ -273,13 +283,13 @@ export default function LearningScorePage() {
               desc: 'Use moderate votes (0.3-0.7) when uncertain, strong votes only when confident.',
             },
           ].map((step, i) => (
-            <li key={i} className="flex gap-4 p-4 bg-gray-50 rounded-lg">
-              <div className="flex-shrink-0 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-sm">
+            <li key={i} className="flex gap-4 p-4 bg-dark-700 rounded-lg">
+              <div className="flex-shrink-0 w-8 h-8 bg-accent-coral text-dark-900 rounded-full flex items-center justify-center font-bold text-sm">
                 {i + 1}
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900">{step.title}</h4>
-                <p className="text-sm text-gray-600 mt-1">{step.desc}</p>
+                <h4 className="font-semibold text-text-primary">{step.title}</h4>
+                <p className="text-sm text-text-secondary mt-1">{step.desc}</p>
               </div>
             </li>
           ))}
@@ -290,33 +300,33 @@ export default function LearningScorePage() {
 
       <div className="not-prose overflow-x-auto my-6">
         <table className="min-w-full text-sm">
-          <thead className="bg-gray-50">
+          <thead className="bg-dark-700">
             <tr>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Aspect</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Learning Score</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Reputation</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Aspect</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Learning Score</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Reputation</th>
             </tr>
           </thead>
           <tbody>
-            <tr className="border-b border-gray-100">
-              <td className="py-3 px-4 text-gray-700 font-medium">Range</td>
-              <td className="py-3 px-4 font-mono">0.0 to 1.0</td>
-              <td className="py-3 px-4 font-mono">0 to unlimited</td>
+            <tr className="border-b border-subtle">
+              <td className="py-3 px-4 text-text-secondary font-medium">Range</td>
+              <td className="py-3 px-4 font-mono text-text-primary">0.0 to 1.0</td>
+              <td className="py-3 px-4 font-mono text-text-primary">0 to unlimited</td>
             </tr>
-            <tr className="border-b border-gray-100">
-              <td className="py-3 px-4 text-gray-700 font-medium">Measures</td>
-              <td className="py-3 px-4 text-gray-600">Accuracy & improvement</td>
-              <td className="py-3 px-4 text-gray-600">Total contribution value</td>
+            <tr className="border-b border-subtle">
+              <td className="py-3 px-4 text-text-secondary font-medium">Measures</td>
+              <td className="py-3 px-4 text-text-muted">Accuracy & improvement</td>
+              <td className="py-3 px-4 text-text-muted">Total contribution value</td>
             </tr>
-            <tr className="border-b border-gray-100">
-              <td className="py-3 px-4 text-gray-700 font-medium">Affected by</td>
-              <td className="py-3 px-4 text-gray-600">Vote accuracy only</td>
-              <td className="py-3 px-4 text-gray-600">Votes, evidence, engagement</td>
+            <tr className="border-b border-subtle">
+              <td className="py-3 px-4 text-text-secondary font-medium">Affected by</td>
+              <td className="py-3 px-4 text-text-muted">Vote accuracy only</td>
+              <td className="py-3 px-4 text-text-muted">Votes, evidence, engagement</td>
             </tr>
-            <tr className="border-b border-gray-100">
-              <td className="py-3 px-4 text-gray-700 font-medium">Use case</td>
-              <td className="py-3 px-4 text-gray-600">Personal development metric</td>
-              <td className="py-3 px-4 text-gray-600">Platform influence weight</td>
+            <tr className="border-b border-subtle">
+              <td className="py-3 px-4 text-text-secondary font-medium">Use case</td>
+              <td className="py-3 px-4 text-text-muted">Personal development metric</td>
+              <td className="py-3 px-4 text-text-muted">Platform influence weight</td>
             </tr>
           </tbody>
         </table>

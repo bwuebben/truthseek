@@ -9,14 +9,14 @@ export default function ApiReferencePage() {
     <div>
       {/* Header */}
       <div className="not-prose mb-8">
-        <div className="inline-flex items-center gap-2 text-sm text-blue-600 font-medium mb-2">
+        <div className="inline-flex items-center gap-2 text-sm text-accent-coral font-medium mb-2">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
           </svg>
           For Developers
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">API Reference</h1>
-        <p className="text-lg text-gray-600 max-w-3xl">
+        <h1 className="text-3xl font-bold text-text-primary mb-4">API Reference</h1>
+        <p className="text-lg text-text-secondary max-w-3xl">
           The truthseek API provides programmatic access to claims, votes, evidence,
           and user data. All endpoints return JSON and follow REST conventions.
         </p>
@@ -26,13 +26,13 @@ export default function ApiReferencePage() {
 
       <div className="not-prose my-6">
         <div className="flex flex-col sm:flex-row gap-3">
-          <div className="flex-1 p-4 bg-gray-900 rounded-lg">
-            <div className="text-xs text-gray-400 mb-1">Production</div>
-            <code className="text-green-400 font-mono">https://api.truthseek.io/api/v1</code>
+          <div className="flex-1 p-4 bg-dark-900 rounded-lg border border-subtle">
+            <div className="text-xs text-text-muted mb-1">Production</div>
+            <code className="text-emerald-400 font-mono">https://api.truthseek.io/api/v1</code>
           </div>
-          <div className="flex-1 p-4 bg-gray-100 rounded-lg">
-            <div className="text-xs text-gray-500 mb-1">Development</div>
-            <code className="text-gray-700 font-mono">http://localhost:8000/api/v1</code>
+          <div className="flex-1 p-4 bg-dark-700 rounded-lg border border-subtle">
+            <div className="text-xs text-text-muted mb-1">Development</div>
+            <code className="text-text-secondary font-mono">http://localhost:8000/api/v1</code>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@ Authorization: Bearer <access_token>`}
       />
 
       <Callout type="info" title="Getting Tokens">
-        See the <a href="/docs/authentication" className="text-blue-600 hover:underline">Authentication guide</a> for
+        See the <a href="/docs/authentication" className="text-accent-coral hover:underline">Authentication guide</a> for
         obtaining and managing access tokens.
       </Callout>
 
@@ -79,7 +79,7 @@ Authorization: Bearer <access_token>`}
 
       <ApiEndpoint method="POST" path="/claims" description="Create a new claim. Requires authentication.">
         <div className="mt-3">
-          <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Request Body</h5>
+          <h5 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">Request Body</h5>
           <CodeBlock
             language="json"
             code={`{
@@ -94,14 +94,14 @@ Authorization: Bearer <access_token>`}
 
       <ApiEndpoint method="POST" path="/claims/{claim_id}/vote" description="Cast or update your vote on a claim.">
         <div className="mt-3">
-          <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Request Body</h5>
+          <h5 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">Request Body</h5>
           <CodeBlock
             language="json"
             code={`{
   "value": 0.8
 }`}
           />
-          <p className="text-xs text-gray-500 mt-2">Value must be between 0.0 and 1.0</p>
+          <p className="text-xs text-text-muted mt-2">Value must be between 0.0 and 1.0</p>
         </div>
       </ApiEndpoint>
 
@@ -113,7 +113,7 @@ Authorization: Bearer <access_token>`}
 
       <ApiEndpoint method="POST" path="/claims/{claim_id}/evidence" description="Submit new evidence for a claim.">
         <div className="mt-3">
-          <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Request Body</h5>
+          <h5 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">Request Body</h5>
           <CodeBlock
             language="json"
             code={`{
@@ -140,7 +140,7 @@ Authorization: Bearer <access_token>`}
   "direction": "up"
 }`}
           />
-          <p className="text-xs text-gray-500 mt-2">Direction: &quot;up&quot; or &quot;down&quot;</p>
+          <p className="text-xs text-text-muted mt-2">Direction: &quot;up&quot; or &quot;down&quot;</p>
         </div>
       </ApiEndpoint>
 
@@ -183,7 +183,7 @@ Authorization: Bearer <access_token>`}
 
       <ApiEndpoint method="GET" path="/stats/platform" description="Get platform-wide statistics (cached for 5 minutes).">
         <div className="mt-3">
-          <h5 className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Response</h5>
+          <h5 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">Response</h5>
           <CodeBlock
             language="json"
             code={`{
@@ -213,11 +213,11 @@ Authorization: Bearer <access_token>`}
 
       <div className="not-prose overflow-x-auto my-6">
         <table className="min-w-full text-sm">
-          <thead className="bg-gray-50">
+          <thead className="bg-dark-700">
             <tr>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Code</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Description</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Code</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Status</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Description</th>
             </tr>
           </thead>
           <tbody>
@@ -232,10 +232,10 @@ Authorization: Bearer <access_token>`}
               { code: 429, status: 'Too Many Requests', desc: 'Rate limit exceeded' },
               { code: 500, status: 'Internal Error', desc: 'Server error' },
             ].map((item) => (
-              <tr key={item.code} className="border-b border-gray-100">
-                <td className="py-3 px-4 font-mono text-sm">{item.code}</td>
-                <td className="py-3 px-4 font-medium text-gray-700">{item.status}</td>
-                <td className="py-3 px-4 text-gray-600">{item.desc}</td>
+              <tr key={item.code} className="border-b border-subtle">
+                <td className="py-3 px-4 font-mono text-sm text-text-primary">{item.code}</td>
+                <td className="py-3 px-4 font-medium text-text-secondary">{item.status}</td>
+                <td className="py-3 px-4 text-text-muted">{item.desc}</td>
               </tr>
             ))}
           </tbody>
@@ -248,16 +248,16 @@ Authorization: Bearer <access_token>`}
         API requests are rate-limited based on your tier. Rate limit headers are included in responses:
       </p>
 
-      <div className="not-prose my-6 p-4 bg-gray-50 rounded-lg font-mono text-sm">
+      <div className="not-prose my-6 p-4 bg-dark-700 rounded-lg font-mono text-sm border border-subtle">
         <div className="space-y-1">
-          <div><span className="text-gray-500">X-RateLimit-Limit:</span> 100</div>
-          <div><span className="text-gray-500">X-RateLimit-Remaining:</span> 95</div>
-          <div><span className="text-gray-500">X-RateLimit-Reset:</span> 1705320000</div>
+          <div><span className="text-text-muted">X-RateLimit-Limit:</span> <span className="text-text-primary">100</span></div>
+          <div><span className="text-text-muted">X-RateLimit-Remaining:</span> <span className="text-text-primary">95</span></div>
+          <div><span className="text-text-muted">X-RateLimit-Reset:</span> <span className="text-text-primary">1705320000</span></div>
         </div>
       </div>
 
       <Callout type="tip" title="Higher Limits">
-        See the <a href="/docs/tier-system" className="text-blue-600 hover:underline">Tier System</a> documentation
+        See the <a href="/docs/tier-system" className="text-accent-coral hover:underline">Tier System</a> documentation
         for rate limits by tier.
       </Callout>
     </div>

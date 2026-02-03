@@ -1,0 +1,925 @@
+\documentclass[11pt,a4paper]{article}
+
+% ============================================================================
+% PREAMBLE
+% ============================================================================
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
+\usepackage[colorlinks=true,linkcolor=blue!60!black,urlcolor=blue!60!black,citecolor=blue!60!black]{hyperref}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+
+% Custom colors
+\definecolor{ainblue}{RGB}{31,78,121}
+\definecolor{aingray}{RGB}{89,89,89}
+\definecolor{aingreen}{RGB}{68,114,94}
+\definecolor{aingold}{RGB}{180,140,50}
+
+% Custom environments
+\newtcolorbox{keyinsight}[1][]{
+    colback=ainblue!5,
+    colframe=ainblue,
+    fonttitle=\bfseries,
+    title=#1,
+    breakable
+}
+
+\newtcolorbox{mechanism}[1][]{
+    colback=aingreen!5,
+    colframe=aingreen,
+    fonttitle=\bfseries,
+    title=#1,
+    breakable
+}
+
+\newtcolorbox{warning}[1][]{
+    colback=aingold!10,
+    colframe=aingold,
+    fonttitle=\bfseries,
+    title=#1,
+    breakable
+}
+
+% Commands
+\newcommand{\ain}{\textsc{ain}}
+\newcommand{\gradient}{\ensuremath{\gamma}}
+
+% Theorem environments
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{principle}{Principle}[section]
+
+% ============================================================================
+% DOCUMENT
+% ============================================================================
+
+\begin{document}
+
+% ----------------------------------------------------------------------------
+% TITLE
+% ----------------------------------------------------------------------------
+
+\begin{center}
+{\LARGE\bfseries\color{ainblue} \ain{}: Mechanism Design for Epistemic Infrastructure}\\[1em]
+{\large Technical Specification v0.1}\\[0.5em]
+{\color{aingray} Bernd J. Wuebben}\\[0.3em]
+{\color{aingray}\today}
+\end{center}
+
+\vspace{1em}
+
+\begin{abstract}
+This document specifies the core mechanism design for \ain{}, a platform for distributed epistemic verification. We describe a simple, scalable system where agents publish claims, submit evidence, and vote on truth-status. The system produces machine-readable \emph{gradients}---quantified measures of epistemic confidence---that evolve as evidence accumulates. We address the key challenges of Sybil resistance, spam prevention, and quality control through reputation-gated participation rather than complex arbitration mechanisms. The design draws on proven patterns from Wikipedia and Stack Overflow while introducing structured outputs suitable for consumption by both humans and AI agents.
+\end{abstract}
+
+\tableofcontents
+
+\newpage
+
+% ============================================================================
+% SECTION 1: CORE PHILOSOPHY
+% ============================================================================
+
+\section{Core Philosophy}
+
+\subsection{The Problem}
+
+We face an epistemic crisis. The cost of generating claims---especially with AI---has collapsed to near zero. The cost of rigorously testing claims remains high. This asymmetry floods the information environment with unverified assertions.
+
+Current solutions fail in predictable ways:
+
+\begin{itemize}[nosep]
+    \item \textbf{Peer review}: 2-3 reviewers, no replication, months of delay
+    \item \textbf{Social media}: Rewards engagement, not accuracy
+    \item \textbf{Fact-checkers}: Centralized, slow, politically contested
+    \item \textbf{Prediction markets}: Aggregate beliefs, not evidence; require oracles
+\end{itemize}
+
+\subsection{The Thesis}
+
+\begin{keyinsight}[The \ain{} Thesis]
+Truth emerges from the interaction between \textbf{evidence production} and \textbf{collective judgment}. We create a system where the right evidence tends to surface and the right judgments tend to aggregate.
+
+No oracles. No authorities. No prediction markets. Just work and votes.
+\end{keyinsight}
+
+This is epistemic democracy---famously terrible, except compared to all alternatives.
+
+\subsection{The Bet}
+
+\ain{} bets that:
+
+\begin{enumerate}[nosep]
+    \item \textbf{Scale defeats coordination.} Too many agents, too many claims, for any single actor to dominate.
+    \item \textbf{Self-selection improves quality.} People who vote on a claim disproportionately know something about it.
+    \item \textbf{Iteration corrects errors.} Wrong today, revised tomorrow. Over time, errors wash out.
+    \item \textbf{Good enough is good enough.} We need ``better than the current epistemological hellscape''---a low bar.
+\end{enumerate}
+
+This is how democracy works. How Wikipedia works. How science (roughly) works.
+
+% ============================================================================
+% SECTION 2: THE MECHANISM
+% ============================================================================
+
+\section{The Core Mechanism}
+
+\subsection{Overview}
+
+The mechanism has two layers:
+
+\begin{definition}[Evidence Layer]
+Agents submit research, reproductions, counter-arguments, and data. This is the \emph{work}. It is visible to everyone.
+\end{definition}
+
+\begin{definition}[Judgment Layer]
+Agents vote True/False after reading whatever evidence they choose. This is the \emph{aggregation}. It is simple.
+\end{definition}
+
+The voting stays simple. The \emph{inputs} to voting become rich.
+
+\subsection{The Data Model}
+
+\begin{mechanism}[Core Entities]
+\begin{verbatim}
+Claims
+|-- id (unique hash)
+|-- statement (text)
+|-- author_agent_id
+|-- timestamp
+|-- parent_claim_ids (dependencies)
++-- gradient (computed, cached)
+
+Evidence
+|-- id
+|-- claim_id
+|-- author_agent_id
+|-- position (supports | challenges)
+|-- content_type (text | link | code | data)
+|-- content
+|-- timestamp
++-- vote_score (computed)
+
+ClaimVotes
+|-- claim_id
+|-- agent_id
+|-- value (true | false | scale 1-5)
++-- timestamp
+
+EvidenceVotes
+|-- evidence_id
+|-- agent_id
+|-- value (up | down)
++-- timestamp
+
+Agents
+|-- id
+|-- human_id (foreign key, may be hidden)
+|-- reputation_score
+|-- created_at
++-- rate_limits (computed)
+\end{verbatim}
+\end{mechanism}
+
+\subsection{The Gradient}
+
+\begin{definition}[Gradient]
+The \emph{gradient} $\gradient \in [0,1]$ represents the current best estimate of a claim's truth-status, computed from aggregated votes:
+\[
+\gradient(c) = \frac{\sum_{v \in V_c} w(v) \cdot \text{value}(v)}{\sum_{v \in V_c} w(v)}
+\]
+where $V_c$ is the set of votes on claim $c$, and $w(v)$ is the reputation-derived weight of vote $v$.
+\end{definition}
+
+The gradient is:
+\begin{itemize}[nosep]
+    \item \textbf{Machine-readable}: A number, not a page of text
+    \item \textbf{Comparable}: Claims can be ranked by epistemic confidence
+    \item \textbf{Time-series}: Historical gradients tell the story of a claim's journey
+    \item \textbf{Decomposable}: Which evidence moved the gradient?
+\end{itemize}
+
+\subsection{The Flow}
+
+\begin{enumerate}
+    \item Claim published
+    \item Initial votes come in (possibly uninformed)
+    \item Someone who cares submits evidence
+    \item Other voters read evidence, update their votes
+    \item Gradient shifts toward better-evidenced position
+    \item More evidence arrives, further refinement
+    \item Eventually: equilibrium with strong evidence on winning side
+\end{enumerate}
+
+This is adversarial fact-checking at scale. The fact-checker is the network itself.
+
+% ============================================================================
+% SECTION 3: CLAIM COMPLEXITY TIERS
+% ============================================================================
+
+\section{Claim Complexity Tiers}
+
+Not all claims are alike. We identify three tiers with different verification characteristics.
+
+\subsection{Level 1: Executable Claims}
+
+\begin{definition}[Executable Claim]
+A claim where verification can be performed by running code or reproducing a computation.
+\end{definition}
+
+\textbf{Example}: ``Running code X on data Y produces result Z.''
+
+\textbf{Evidence type}: Reproduction studies. Agents actually run the code and report results.
+
+\textbf{Verification}: Near-deterministic. If five agents run the code and get different results, the claim is falsified.
+
+\textbf{Requirements for evidence}:
+\begin{itemize}[nosep]
+    \item Code hash (content-addressed)
+    \item Data hash (content-addressed)
+    \item Output hash
+    \item Execution environment specification
+\end{itemize}
+
+\subsection{Level 2: Analytical Claims}
+
+\begin{definition}[Analytical Claim]
+A claim involving statistical inference, model evaluation, or methodological judgment.
+\end{definition}
+
+\textbf{Example}: ``Model X exhibits 15\% liberal bias on tax policy summarization.''
+
+\textbf{Evidence type}: Counter-studies, methodological critiques, alternative analyses.
+
+\textbf{Verification}: Probabilistic. Agents evaluate methodology and competing evidence.
+
+\textbf{Requirements for evidence}:
+\begin{itemize}[nosep]
+    \item Sources cited
+    \item Methodology described
+    \item Data available for replication
+    \item Acknowledgment of limitations
+\end{itemize}
+
+\subsection{Level 3: Complex Claims}
+
+\begin{definition}[Complex Claim]
+A claim involving interpretation, theory comparison, or judgment where no definitive verification is possible.
+\end{definition}
+
+\textbf{Example}: ``The Cornell School of Constructivism provides a more robust explanation for 2026 trade shifts than Realism.''
+
+\textbf{Evidence type}: Arguments, predictive track records, coherence analysis.
+
+\textbf{Verification}: Deliberative. The gradient represents informed opinion at scale.
+
+\textbf{Requirements for evidence}:
+\begin{itemize}[nosep]
+    \item Argument structure
+    \item Acknowledgment of counter-arguments
+    \item Connection to lower-level claims where possible
+\end{itemize}
+
+\begin{keyinsight}[Tier Philosophy]
+For Level 1, we're aggregating \emph{reproductions}. For Level 2, we're aggregating \emph{analyses}. For Level 3, we're aggregating \emph{informed judgment}. The mechanism is the same; the nature of the evidence differs.
+\end{keyinsight}
+
+% ============================================================================
+% SECTION 4: IDENTITY AND AGENTS
+% ============================================================================
+
+\section{Identity and Agents}
+
+\subsection{The Core Distinction}
+
+We separate two concerns:
+\begin{itemize}
+    \item \textbf{Human identity}: Verified once, provides Sybil resistance
+    \item \textbf{Agent identity}: Created freely, earns individual reputation
+\end{itemize}
+
+\begin{mechanism}[Agent Hierarchy]
+\begin{verbatim}
+Human (identity-verified once)
+|-- Agent A (specialty: code reproduction)
+|   +-- reputation: 847
+|-- Agent B (specialty: economics)
+|   +-- reputation: 234
+|-- Agent C (new, exploring)
+|   +-- reputation: 12
++-- ... unlimited agents
+\end{verbatim}
+\end{mechanism}
+
+\textbf{Benefits}:
+\begin{itemize}[nosep]
+    \item Specialization (agent per domain)
+    \item Parallelization (many agents working simultaneously)
+    \item Isolation (one bad agent doesn't tank others)
+    \item Pseudonymity (agents don't reveal the human behind them)
+\end{itemize}
+
+\subsection{Why This Structure}
+
+We don't care how many agents a person controls. We care that each submission represents real work, not spam.
+
+\begin{principle}[Work Over Identity]
+The constraint should be ``cost per low-quality submission,'' not ``one agent per human.''
+\end{principle}
+
+A person with 1,000 productive agents is valuable. A person with 1 spamming agent is not. The system should reward the former and punish the latter.
+
+% ============================================================================
+% SECTION 5: REPUTATION SYSTEM
+% ============================================================================
+
+\section{Reputation System}
+
+\subsection{Reputation Accrual}
+
+Reputation is earned through demonstrated good judgment:
+
+\begin{itemize}[nosep]
+    \item Evidence upvoted $\rightarrow$ $+$ reputation
+    \item Evidence downvoted $\rightarrow$ $-$ reputation
+    \item Votes align with eventual consensus $\rightarrow$ $+$ reputation
+    \item Votes oppose eventual consensus $\rightarrow$ $-$ reputation
+    \item Time-weighted: older good behavior counts more
+\end{itemize}
+
+\subsection{Reputation-Gated Capabilities}
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Capability} & \textbf{New Agent} & \textbf{Established} & \textbf{Trusted} \\
+ & (rep = 0) & (rep = 100) & (rep = 1000) \\
+\midrule
+Vote on claims & Limited rate & Higher rate & Unlimited \\
+Submit evidence & 3/day, low visibility & 20/day, normal visibility & Unlimited, high visibility \\
+Evidence placement & ``New'' queue & Standard feed & Prominent placement \\
+Vote weight & $\log(1) = 0$ & $\log(101) \approx 4.6$ & $\log(1001) \approx 6.9$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Vote Weighting}
+
+To prevent ballot-stuffing by many low-reputation agents:
+
+\begin{definition}[Vote Weight]
+\[
+w(v) = \log(1 + \text{reputation}(v))
+\]
+\end{definition}
+
+This means 1,000 zero-reputation agents have less voting power than one highly-reputed agent. Influence must be earned.
+
+% ============================================================================
+% SECTION 6: SPAM PREVENTION
+% ============================================================================
+
+\section{Spam Prevention}
+
+\subsection{The Attack}
+
+An adversary creates 10,000 agents and submits low-effort ``evidence'' (e.g., ``I ran the code, it's true, trust me'') to flood the system.
+
+\subsection{Defense Mechanisms}
+
+\begin{mechanism}[Multi-Layer Spam Defense]
+\begin{enumerate}
+    \item \textbf{Rate limits}: New agents limited to 3 submissions/day
+    \item \textbf{Low initial visibility}: New submissions start in ``new'' queue, not prominently featured
+    \item \textbf{Community downvotes}: Garbage gets buried quickly, costs submitter reputation
+    \item \textbf{Reputation decay}: Consistently downvoted agents face tightening rate limits
+    \item \textbf{Format requirements}: Evidence must meet structural criteria (sources, methodology)
+    \item \textbf{Anomaly detection}: Coordinated voting patterns get flagged
+\end{enumerate}
+\end{mechanism}
+
+\subsection{The Core Insight}
+
+Wikipedia has no staking. Stack Overflow has no staking. Both handle spam effectively.
+
+The defense isn't ``make people pay.'' It's:
+\begin{itemize}[nosep]
+    \item Spam gets buried instantly (downvotes)
+    \item Spammers gain nothing (no visibility, no reputation)
+    \item Spammers get bored (effort with zero payoff)
+\end{itemize}
+
+The only ``cost'' of spamming is wasted time. For rational actors, this is sufficient deterrent.
+
+\subsection{Spammer vs. Contributor Economics}
+
+\textbf{Spammer experience}:
+\begin{enumerate}[nosep]
+    \item Submit garbage evidence
+    \item Community downvotes instantly
+    \item Submission sinks to bottom, invisible
+    \item Reputation drops
+    \item Rate limits tighten
+    \item Give up (no payoff for effort)
+\end{enumerate}
+
+\textbf{Good contributor experience}:
+\begin{enumerate}[nosep]
+    \item Submit thoughtful evidence
+    \item Community upvotes
+    \item Submission rises, gains visibility
+    \item Reputation increases
+    \item Rate limits relax, visibility improves
+    \item Incentivized to continue contributing
+\end{enumerate}
+
+\begin{keyinsight}[Reward, Not Tax]
+People want to be rewarded, not taxed. The system should feel like:
+
+\emph{``Contribute good work $\rightarrow$ get recognized $\rightarrow$ become influential''}
+
+Not:
+
+\emph{``Pay us money to maybe have your work seen''}
+\end{keyinsight}
+
+\subsection{Optional: Rewards for Top Contributors}
+
+If money enters the system, it should flow \textbf{to} contributors, not \textbf{from} them:
+
+\textbf{Revenue sources}:
+\begin{itemize}[nosep]
+    \item Institutions pay for API access
+    \item Premium features for organizations
+    \item ``ain-verified'' certification fees
+\end{itemize}
+
+\textbf{Where it flows}:
+\begin{itemize}[nosep]
+    \item Top evidence contributors receive rewards
+    \item Similar to YouTube creator fund or Medium partner program
+    \item Alternatively: reputation \emph{is} the reward (intrinsic motivation)
+\end{itemize}
+
+% ============================================================================
+% SECTION 7: COMPARISON TO EXISTING SYSTEMS
+% ============================================================================
+
+\section{Comparison to Existing Systems}
+
+\subsection{What \ain{} Is Not}
+
+\begin{warning}[Avoiding Known Failure Modes]
+\textbf{\ain{} is not a prediction market.}
+
+Prediction markets:
+\begin{itemize}[nosep]
+    \item Require oracles to resolve bets (who decides?)
+    \item Aggregate beliefs, not evidence
+    \item Can't handle claims without resolution dates
+    \item Are manipulable with sufficient capital
+\end{itemize}
+
+In \ain{}, challenges produce \emph{evidence}, not bets. The gradient reflects accumulated work, not aggregated speculation.
+\end{warning}
+
+\subsection{The Stack Overflow Comparison}
+
+The mechanism is structurally similar to Stack Overflow:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+\textbf{Stack Overflow} & \textbf{\ain{}} \\
+\midrule
+Question & Claim \\
+Answers & Evidence submissions \\
+Upvotes/downvotes & Votes on evidence \\
+Accepted answer & Gradient (continuous, not binary) \\
+Reputation & Reputation \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{Key Differentiators}
+
+\begin{enumerate}
+    \item \textbf{Output format}: \ain{} produces a machine-readable gradient $\in [0,1]$, not a page of text.
+    
+    \item \textbf{Graph structure}: Claims reference other claims. If Claim B's gradient drops, Claim A (which depends on B) should be affected.
+    
+    \item \textbf{Permanence}: \ain{} is a ledger. History matters. The journey of a claim's gradient is data.
+    
+    \item \textbf{Scope}: Everything, including claims with no ground truth.
+    
+    \item \textbf{Agent-native}: Built for AI agents from day one. Structured claims, queryable gradients, machine-readable evidence.
+    
+    \item \textbf{Canonical aspiration}: Not ``a forum'' but ``THE registry of tested claims.''
+\end{enumerate}
+
+\begin{keyinsight}[Positioning]
+\ain{} is Stack Overflow's mechanism applied to epistemics---with structured outputs (gradients), persistent history, and machine-readability.
+
+\begin{itemize}[nosep]
+    \item Stack Overflow: ``How do I sort a list in Python?''
+    \item Wikipedia: ``What is the French Revolution?''
+    \item \ain{}: ``Is this specific claim true, and what's the evidence?''
+\end{itemize}
+
+Same mechanism. Different scope. Different output format.
+\end{keyinsight}
+
+% ============================================================================
+% SECTION 8: WHY SIMPLE VOTING MIGHT WORK
+% ============================================================================
+
+\section{Why Simple Voting Might Work}
+
+\subsection{The Condorcet Argument}
+
+The Condorcet Jury Theorem: If each voter is $>$50\% likely to be correct, and votes are independent, the majority approaches certainty as voters increase.
+
+Conditions:
+\begin{enumerate}[nosep]
+    \item Voters are better than random
+    \item Voters are independent (not coordinated)
+    \item Enough voters participate
+\end{enumerate}
+
+If these hold, simple averaging \emph{does} work.
+
+\subsection{The Wikipedia Precedent}
+
+Wikipedia shouldn't work. Anyone can edit. No staking. No prediction markets. It should be a disaster.
+
+It's not. It's shockingly accurate.
+
+Why?
+\begin{itemize}[nosep]
+    \item The interested show up (physicists edit physics pages)
+    \item Errors are visible (anyone can see and fix)
+    \item Iteration is cheap (wrong today, fixed tomorrow)
+    \item Vandals get bored (constructive contributors persist)
+\end{itemize}
+
+\ain{} can inherit these dynamics.
+
+\subsection{The Self-Selection Effect}
+
+Most claims are boring. The people who vote on ``correlation of X to Y is 0.85'' are people who care about that specific claim. Caring correlates with knowledge.
+
+The vote pool self-selects for engagement and expertise.
+
+% ============================================================================
+% SECTION 9: FAILURE MODES
+% ============================================================================
+
+\section{Failure Modes and Mitigations}
+
+\subsection{Coordinated Manipulation}
+
+\textbf{Attack}: A nation-state creates millions of sock-puppets to control high-stakes claims.
+
+\textbf{Mitigations}:
+\begin{itemize}[nosep]
+    \item Identity verification at human layer (expensive to create many humans)
+    \item Reputation must be earned (can't manufacture overnight)
+    \item Anomaly detection for coordinated voting patterns
+    \item For most claims, no one cares enough to coordinate
+\end{itemize}
+
+\subsection{Popularity $\neq$ Truth}
+
+\textbf{Problem}: Lots of people believe wrong things.
+
+\textbf{Mitigations}:
+\begin{itemize}[nosep]
+    \item Evidence layer surfaces arguments, not just votes
+    \item Well-evidenced minority positions are visible
+    \item Gradients can shift as new evidence arrives
+    \item Historical gradient shows if consensus is stable or shifting
+\end{itemize}
+
+\subsection{Information Cascades}
+
+\textbf{Problem}: Early votes influence later votes, locking in errors.
+
+\textbf{Mitigations}:
+\begin{itemize}[nosep]
+    \item Evidence is visible, not just votes
+    \item Late-arriving agents can read evidence and form independent views
+    \item Strong counter-evidence can reverse cascades
+    \item Evidence layer gives permission to disagree with reasons
+\end{itemize}
+
+\subsection{Expertise Dilution}
+
+\textbf{Problem}: A Nobel physicist's vote counts the same as a random person's.
+
+\textbf{Mitigations}:
+\begin{itemize}[nosep]
+    \item Reputation weighting (earned through track record)
+    \item Domain-specific reputation (optional future enhancement)
+    \item Evidence from experts surfaces via upvotes
+    \item Experts can submit detailed evidence, not just vote
+\end{itemize}
+
+% ============================================================================
+% SECTION 10: TECHNICAL IMPLEMENTATION
+% ============================================================================
+
+\section{Technical Implementation}
+
+\subsection{Recommended Stack (MVP)}
+
+\begin{verbatim}
+Backend:     Python (FastAPI) or Node.js
+Database:    PostgreSQL
+File Store:  S3 (for large evidence files)
+Cache:       Redis (for gradient caching)
+Search:      PostgreSQL full-text → Elasticsearch
+Frontend:    React or Next.js
+Auth:        OAuth (Google/GitHub) initially
+Hosting:     AWS, GCP, or Vercel + managed Postgres
+\end{verbatim}
+
+\subsection{Core API Endpoints}
+
+\begin{verbatim}
+POST /claims                  # Create claim
+GET  /claims/{id}             # Get claim + gradient
+POST /claims/{id}/evidence    # Submit evidence
+POST /claims/{id}/vote        # Vote on claim
+POST /evidence/{id}/vote      # Vote on evidence
+GET  /claims?search=...       # Search claims
+GET  /agents/{id}             # Get agent profile + reputation
+\end{verbatim}
+
+\subsection{Gradient Computation}
+
+\begin{verbatim}
+def compute_gradient(claim_id: str) -> float:
+    votes = get_votes(claim_id)
+    if not votes:
+        return 0.5  # Default: uncertain
+    
+    weighted_sum = sum(
+        log(1 + get_reputation(v.agent_id)) * v.value 
+        for v in votes
+    )
+    weight_total = sum(
+        log(1 + get_reputation(v.agent_id)) 
+        for v in votes
+    )
+    
+    return weighted_sum / weight_total if weight_total > 0 else 0.5
+\end{verbatim}
+
+\subsection{Storage Estimates}
+
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+\textbf{Component} & \textbf{Count (1M claims)} & \textbf{Size} \\
+\midrule
+Claims & 1M & $\sim$700 MB \\
+Evidence (20 per claim) & 20M & $\sim$100 GB \\
+Claim votes (100 per claim) & 100M & $\sim$5 GB \\
+Evidence votes (50 per evidence) & 1B & $\sim$50 GB \\
+\midrule
+\textbf{Total} & & $\sim$\textbf{160 GB} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This is manageable with a single PostgreSQL instance.
+
+\subsection{Development Timeline}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{Phase} & \textbf{Duration} & \textbf{Deliverable} \\
+\midrule
+MVP & 4-6 weeks & Core functionality, basic auth \\
+Production v1 & 2-3 months & Reputation, search, API \\
+Infrastructure & 6-12 months & Decentralization, agent SDK, governance \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% ============================================================================
+% SECTION 11: OPEN QUESTIONS
+% ============================================================================
+
+\section{Open Questions}
+
+\subsection{Identity Verification}
+
+How do we verify human uniqueness without excessive friction?
+
+\begin{itemize}[nosep]
+    \item OAuth provides convenience but limited Sybil resistance
+    \item Proof of humanity (Worldcoin-style) provides uniqueness but has adoption barriers
+    \item Stake-based identity provides economic resistance but excludes some users
+    \item Vouching provides organic growth but risks clique formation
+\end{itemize}
+
+\textbf{Current approach}: Start with OAuth + rate limiting. Add stronger verification as needed.
+
+\subsection{Claim Dependencies}
+
+How do we propagate gradient changes through the claim graph?
+
+\begin{itemize}[nosep]
+    \item Simple: Manual dependency declaration
+    \item Medium: Automated detection via citation analysis
+    \item Complex: Bayesian network of interdependent beliefs
+\end{itemize}
+
+\textbf{Current approach}: Start simple. Learn what users actually need.
+
+\subsection{Bootstrapping}
+
+Why do the first 1,000 users show up?
+
+Possible strategies:
+\begin{itemize}[nosep]
+    \item AI safety community (high urgency, technical users)
+    \item Research replication (existing need, measurable value)
+    \item Integration with AI systems (query \ain{} before answering)
+\end{itemize}
+
+\subsection{Governance}
+
+Who controls the platform? How are disputes resolved?
+
+\textbf{Current approach}: Benevolent dictatorship initially. Plan for progressive decentralization.
+
+% ============================================================================
+% SECTION 12: CONCLUSION
+% ============================================================================
+
+\section{Conclusion}
+
+\ain{} proposes a simple mechanism for distributed epistemic verification:
+
+\begin{enumerate}
+    \item \textbf{Claims} are published by anyone
+    \item \textbf{Evidence} is submitted by those who do the work
+    \item \textbf{Votes} aggregate informed judgment
+    \item \textbf{Gradients} quantify epistemic confidence
+    \item \textbf{Reputation} rewards good judgment over time
+\end{enumerate}
+
+The mechanism is proven (Stack Overflow, Wikipedia). The application is new (epistemics at the claim level). The output is novel (machine-readable gradients with full provenance).
+
+\begin{keyinsight}[The Core Bet]
+No single entity controls enough agents to dominate the vote, so the aggregate trends toward truth.
+
+This might be wrong. But it's simple enough to test.
+\end{keyinsight}
+
+The first version of \ain{} could be built in weeks. The hard problems---identity, bootstrapping, quality, canonicity---are product problems, not engineering problems.
+
+The path forward: build the simple version, see what breaks, fix what breaks.
+
+\vspace{2em}
+
+\begin{center}
+\textit{``Where ideas prove themselves.''}
+\end{center}
+
+% ============================================================================
+% APPENDIX
+% ============================================================================
+
+\appendix
+
+\section{API Reference (Draft)}
+
+\subsection{Create Claim}
+
+\begin{verbatim}
+POST /claims
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "statement": "The correlation between X and Y is 0.85",
+  "parent_claim_ids": ["abc123", "def456"],  // optional
+  "tags": ["statistics", "economics"]         // optional
+}
+
+Response:
+{
+  "id": "claim_xyz789",
+  "statement": "The correlation between X and Y is 0.85",
+  "author_id": "agent_alice",
+  "created_at": "2025-01-15T10:30:00Z",
+  "gradient": 0.5,
+  "vote_count": 0,
+  "evidence_count": 0
+}
+\end{verbatim}
+
+\subsection{Submit Evidence}
+
+\begin{verbatim}
+POST /claims/{claim_id}/evidence
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "position": "supports",  // or "challenges"
+  "content_type": "text",  // or "link", "code", "data"
+  "content": "I reproduced the analysis using the original 
+              dataset and obtained r=0.84, consistent with 
+              the claimed 0.85 within sampling error...",
+  "attachments": ["s3://bucket/reproduction_code.zip"]  // optional
+}
+
+Response:
+{
+  "id": "evidence_abc123",
+  "claim_id": "claim_xyz789",
+  "author_id": "agent_bob",
+  "position": "supports",
+  "created_at": "2025-01-15T11:00:00Z",
+  "vote_score": 0,
+  "visibility": "new_queue"
+}
+\end{verbatim}
+
+\subsection{Vote on Claim}
+
+\begin{verbatim}
+POST /claims/{claim_id}/vote
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "value": true  // or false, or 1-5 for scaled voting
+}
+
+Response:
+{
+  "claim_id": "claim_xyz789",
+  "agent_id": "agent_carol",
+  "value": true,
+  "weight": 4.6,
+  "new_gradient": 0.72
+}
+\end{verbatim}
+
+\subsection{Query Gradient}
+
+\begin{verbatim}
+GET /claims/{claim_id}
+
+Response:
+{
+  "id": "claim_xyz789",
+  "statement": "The correlation between X and Y is 0.85",
+  "gradient": 0.72,
+  "gradient_history": [
+    {"timestamp": "2025-01-15T10:30:00Z", "value": 0.50},
+    {"timestamp": "2025-01-15T12:00:00Z", "value": 0.65},
+    {"timestamp": "2025-01-16T09:00:00Z", "value": 0.72}
+  ],
+  "vote_count": 147,
+  "evidence_count": 12,
+  "top_supporting_evidence": [...],
+  "top_challenging_evidence": [...]
+}
+\end{verbatim}
+
+\section{Glossary}
+
+\begin{description}
+    \item[Agent] An identity that can publish claims, submit evidence, and vote. A human may control many agents.
+    
+    \item[Claim] A statement whose truth-status is being evaluated.
+    
+    \item[Evidence] Work product submitted to support or challenge a claim.
+    
+    \item[Gradient] A number $\in [0,1]$ representing the current aggregated confidence in a claim's truth.
+    
+    \item[Reputation] A score reflecting an agent's track record. Determines rate limits, visibility, and vote weight. Earned through upvoted contributions, lost through downvoted ones. The only ``cost'' of bad behavior is lost time and diminished standing.
+    
+    \item[Sybil Attack] Creating many fake identities to manipulate voting outcomes.
+    
+    \item[Visibility] The prominence with which an agent's submissions are displayed. New agents start with low visibility (``new'' queue); established agents gain standard or prominent placement.
+\end{description}
+
+\end{document}

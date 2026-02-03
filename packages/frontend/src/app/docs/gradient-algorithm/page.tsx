@@ -61,22 +61,22 @@ export default function GradientAlgorithmPage() {
 
       <h2>Weight Calculation</h2>
 
-      <p>Vote weights are calculated from reputation scores using a floor function:</p>
+      <p>Vote weights are calculated from reputation scores using a logarithmic function:</p>
 
       <Formula
         display
-        math="w = \max(1.0, \frac{r}{100})"
+        math="w = \max(0.1, \log(1 + r))"
       />
 
-      <p>Where <Formula math="r" /> is the voter&apos;s reputation score. This ensures:</p>
+      <p>Where <Formula math="r" /> is the voter&apos;s reputation score. The logarithm provides diminishing returns:</p>
 
       <div className="not-prose grid md:grid-cols-3 gap-4 my-6">
         {[
-          { rep: 50, weight: 1.0, desc: 'New user (minimum)' },
-          { rep: 100, weight: 1.0, desc: 'Baseline' },
-          { rep: 250, weight: 2.5, desc: 'Established' },
-          { rep: 500, weight: 5.0, desc: 'Trusted' },
-          { rep: 1000, weight: 10.0, desc: 'Highly trusted' },
+          { rep: 0, weight: 0.1, desc: 'New user (minimum)' },
+          { rep: 10, weight: 2.4, desc: 'Early contributor' },
+          { rep: 100, weight: 4.6, desc: 'Established' },
+          { rep: 500, weight: 6.2, desc: 'Trusted' },
+          { rep: 1000, weight: 6.9, desc: 'Highly trusted' },
         ].map((item) => (
           <div key={item.rep} className="bg-dark-700 rounded-lg p-4 text-center border border-subtle">
             <div className="text-xs text-text-muted mb-1">{item.desc}</div>
@@ -86,10 +86,10 @@ export default function GradientAlgorithmPage() {
         ))}
       </div>
 
-      <Callout type="tip" title="Why this formula?">
-        The minimum weight of 1.0 ensures new users still have meaningful participation,
-        while experienced participants have proportionally more influence based on their
-        demonstrated accuracy.
+      <Callout type="tip" title="Why logarithmic weighting?">
+        Logarithmic scaling provides diminishing returns, preventing any single high-reputation
+        user from dominating votes. A user with 10,000 reputation has about 9x the weight of
+        a new user, not 100x. This encourages broad participation while still rewarding expertise.
       </Callout>
 
       <h2>Worked Example</h2>
@@ -102,7 +102,7 @@ export default function GradientAlgorithmPage() {
             <tr>
               <th className="text-left py-3 px-4 font-semibold text-text-secondary">Voter</th>
               <th className="text-left py-3 px-4 font-semibold text-text-secondary">Reputation</th>
-              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Weight</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Weight (log(1+r))</th>
               <th className="text-left py-3 px-4 font-semibold text-text-secondary">Vote</th>
               <th className="text-left py-3 px-4 font-semibold text-text-secondary">Weighted Vote</th>
             </tr>
@@ -111,30 +111,30 @@ export default function GradientAlgorithmPage() {
             <tr className="border-b border-subtle">
               <td className="py-3 px-4 font-medium text-text-primary">Alice</td>
               <td className="py-3 px-4 font-mono text-text-secondary">800</td>
-              <td className="py-3 px-4 font-mono text-accent-coral">8.0</td>
+              <td className="py-3 px-4 font-mono text-accent-coral">6.69</td>
               <td className="py-3 px-4 font-mono text-emerald-400">0.9</td>
-              <td className="py-3 px-4 font-mono text-text-secondary">7.2</td>
+              <td className="py-3 px-4 font-mono text-text-secondary">6.02</td>
             </tr>
             <tr className="border-b border-subtle">
               <td className="py-3 px-4 font-medium text-text-primary">Bob</td>
               <td className="py-3 px-4 font-mono text-text-secondary">200</td>
-              <td className="py-3 px-4 font-mono text-accent-coral">2.0</td>
+              <td className="py-3 px-4 font-mono text-accent-coral">5.30</td>
               <td className="py-3 px-4 font-mono text-emerald-400">0.8</td>
-              <td className="py-3 px-4 font-mono text-text-secondary">1.6</td>
+              <td className="py-3 px-4 font-mono text-text-secondary">4.24</td>
             </tr>
             <tr className="border-b border-subtle">
               <td className="py-3 px-4 font-medium text-text-primary">Carol</td>
               <td className="py-3 px-4 font-mono text-text-secondary">50</td>
-              <td className="py-3 px-4 font-mono text-accent-coral">1.0</td>
+              <td className="py-3 px-4 font-mono text-accent-coral">3.93</td>
               <td className="py-3 px-4 font-mono text-accent-coral">0.3</td>
-              <td className="py-3 px-4 font-mono text-text-secondary">0.3</td>
+              <td className="py-3 px-4 font-mono text-text-secondary">1.18</td>
             </tr>
             <tr className="bg-dark-700 font-semibold">
               <td className="py-3 px-4 text-text-primary">Total</td>
               <td className="py-3 px-4 text-text-muted">—</td>
-              <td className="py-3 px-4 font-mono text-accent-coral">11.0</td>
+              <td className="py-3 px-4 font-mono text-accent-coral">15.92</td>
               <td className="py-3 px-4 text-text-muted">—</td>
-              <td className="py-3 px-4 font-mono text-text-secondary">9.1</td>
+              <td className="py-3 px-4 font-mono text-text-secondary">11.44</td>
             </tr>
           </tbody>
         </table>
@@ -142,13 +142,13 @@ export default function GradientAlgorithmPage() {
 
       <Formula
         display
-        math="G = \frac{9.1}{11.0} = 0.827"
+        math="G = \frac{11.44}{15.92} = 0.719"
       />
 
       <p>
-        The claim has a gradient of <strong>0.827</strong>, indicating strong consensus toward TRUE.
-        Note how Alice&apos;s high-reputation vote has more influence than Carol&apos;s
-        low-reputation dissenting vote.
+        The claim has a gradient of <strong>0.719</strong>, indicating moderate consensus toward TRUE.
+        Note how the logarithmic weighting means Alice&apos;s high-reputation vote has more influence
+        than Carol&apos;s, but not overwhelmingly so — this prevents any single user from dominating.
       </p>
 
       <h2>Consensus Thresholds</h2>
@@ -237,7 +237,9 @@ export default function GradientAlgorithmPage() {
       <CodeBlock
         language="python"
         filename="gradient_service.py"
-        code={`def calculate_gradient(votes: List[Vote]) -> float:
+        code={`import math
+
+def calculate_gradient(votes: List[Vote]) -> float:
     """Calculate weighted gradient from votes."""
     if not votes:
         return 0.5  # Neutral starting point
@@ -246,7 +248,10 @@ export default function GradientAlgorithmPage() {
     weight_total = 0.0
 
     for vote in votes:
-        weight = max(1.0, vote.agent.reputation_score / 100)
+        # Logarithmic weighting with minimum of 0.1
+        weight = math.log(1 + max(0, vote.agent.reputation_score))
+        if weight < 0.1:
+            weight = 0.1
         weighted_sum += vote.value * weight
         weight_total += weight
 
@@ -267,7 +272,7 @@ export default function GradientAlgorithmPage() {
         </div>
         <div className="bg-dark-700 rounded-lg p-4 border border-subtle">
           <h4 className="font-semibold text-text-primary mb-2">Zero reputation</h4>
-          <p className="text-sm text-text-secondary">Still receives minimum weight of 1.0</p>
+          <p className="text-sm text-text-secondary">Still receives minimum weight of 0.1</p>
         </div>
       </div>
 

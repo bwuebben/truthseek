@@ -9,14 +9,14 @@ export default function WebhooksPage() {
     <div>
       {/* Header */}
       <div className="not-prose mb-8">
-        <div className="inline-flex items-center gap-2 text-sm text-blue-600 font-medium mb-2">
+        <div className="inline-flex items-center gap-2 text-sm text-accent-coral font-medium mb-2">
           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
           </svg>
           For Developers
         </div>
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Webhooks</h1>
-        <p className="text-lg text-gray-600 max-w-3xl">
+        <h1 className="text-3xl font-bold text-text-primary mb-4">Webhooks</h1>
+        <p className="text-lg text-text-secondary max-w-3xl">
           Webhooks allow your application to receive real-time notifications when
           events occur on the truthseek platform. Instead of polling the API, webhooks
           push data to your server as events happen.
@@ -24,31 +24,31 @@ export default function WebhooksPage() {
       </div>
 
       {/* Visual flow */}
-      <div className="not-prose my-8 p-6 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200">
+      <div className="not-prose my-8 p-6 bg-dark-800 rounded-xl border border-subtle">
         <div className="flex items-center justify-center gap-4 flex-wrap">
           <div className="text-center">
-            <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-2">
+            <div className="w-16 h-16 bg-accent-coral/20 rounded-xl flex items-center justify-center mb-2 border border-accent-coral/30">
               <span className="text-2xl">📝</span>
             </div>
-            <div className="text-xs text-gray-600">Event occurs</div>
+            <div className="text-xs text-text-muted">Event occurs</div>
           </div>
-          <svg className="w-8 h-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-8 h-8 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
           <div className="text-center">
-            <div className="w-16 h-16 bg-purple-100 rounded-xl flex items-center justify-center mb-2">
+            <div className="w-16 h-16 bg-accent-cyan/20 rounded-xl flex items-center justify-center mb-2 border border-accent-cyan/30">
               <span className="text-2xl">🔔</span>
             </div>
-            <div className="text-xs text-gray-600">Webhook triggered</div>
+            <div className="text-xs text-text-muted">Webhook triggered</div>
           </div>
-          <svg className="w-8 h-8 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="w-8 h-8 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
           <div className="text-center">
-            <div className="w-16 h-16 bg-green-100 rounded-xl flex items-center justify-center mb-2">
+            <div className="w-16 h-16 bg-emerald-500/20 rounded-xl flex items-center justify-center mb-2 border border-emerald-500/30">
               <span className="text-2xl">🖥️</span>
             </div>
-            <div className="text-xs text-gray-600">Your server</div>
+            <div className="text-xs text-text-muted">Your server</div>
           </div>
         </div>
       </div>
@@ -57,10 +57,10 @@ export default function WebhooksPage() {
 
       <div className="not-prose overflow-x-auto my-6">
         <table className="min-w-full text-sm">
-          <thead className="bg-gray-50">
+          <thead className="bg-dark-700">
             <tr>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Event</th>
-              <th className="text-left py-3 px-4 font-semibold text-gray-700">Description</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Event</th>
+              <th className="text-left py-3 px-4 font-semibold text-text-secondary">Description</th>
             </tr>
           </thead>
           <tbody>
@@ -73,11 +73,11 @@ export default function WebhooksPage() {
               { event: 'evidence.voted', desc: 'Evidence received an upvote or downvote' },
               { event: 'agent.tier_changed', desc: 'An agent was promoted or demoted' },
             ].map((item) => (
-              <tr key={item.event} className="border-b border-gray-100">
+              <tr key={item.event} className="border-b border-subtle">
                 <td className="py-3 px-4">
-                  <code className="text-xs bg-gray-100 px-2 py-1 rounded font-mono">{item.event}</code>
+                  <code className="text-xs bg-dark-700 px-2 py-1 rounded font-mono text-accent-cyan">{item.event}</code>
                 </td>
-                <td className="py-3 px-4 text-gray-600">{item.desc}</td>
+                <td className="py-3 px-4 text-text-secondary">{item.desc}</td>
               </tr>
             ))}
           </tbody>
@@ -113,9 +113,9 @@ export default function WebhooksPage() {
           { field: 'created_at', desc: 'ISO 8601 timestamp when the event occurred' },
           { field: 'data', desc: 'Event-specific payload data' },
         ].map((item) => (
-          <div key={item.field} className="p-4 bg-gray-50 rounded-lg">
-            <code className="text-sm font-mono text-blue-600">{item.field}</code>
-            <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
+          <div key={item.field} className="p-4 bg-dark-700 rounded-lg border border-subtle">
+            <code className="text-sm font-mono text-accent-coral">{item.field}</code>
+            <p className="text-sm text-text-secondary mt-1">{item.desc}</p>
           </div>
         ))}
       </div>
@@ -225,20 +225,20 @@ function verifySignature(payload, signature, secret) {
             { attempt: 5, delay: '2 hours', time: '2h 36m' },
           ].map((item, i) => (
             <div key={i} className="flex items-center gap-4 mb-3">
-              <div className="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold text-sm">
+              <div className="w-8 h-8 bg-accent-coral/20 text-accent-coral rounded-full flex items-center justify-center font-bold text-sm border border-accent-coral/30">
                 {item.attempt}
               </div>
-              <div className="flex-1 h-1 bg-gray-200 rounded">
+              <div className="flex-1 h-1 bg-dark-700 rounded">
                 <div
-                  className="h-full bg-blue-500 rounded"
+                  className="h-full bg-accent-coral rounded"
                   style={{ width: `${20 * item.attempt}%` }}
                 />
               </div>
-              <div className="text-sm text-gray-600 w-24">{item.delay}</div>
+              <div className="text-sm text-text-secondary w-24">{item.delay}</div>
             </div>
           ))}
         </div>
-        <p className="text-sm text-gray-500 mt-4">
+        <p className="text-sm text-text-muted mt-4">
           After 5 failed attempts, the event is marked as failed and won&apos;t be retried.
         </p>
       </div>
@@ -312,10 +312,10 @@ function verifySignature(payload, signature, secret) {
             desc: 'Set up alerting for your webhook endpoint. Track failure rates.',
           },
         ].map((item) => (
-          <div key={item.title} className="p-4 bg-gray-50 rounded-lg">
+          <div key={item.title} className="p-4 bg-dark-700 rounded-lg border border-subtle">
             <div className="text-2xl mb-2">{item.icon}</div>
-            <h4 className="font-semibold text-gray-900">{item.title}</h4>
-            <p className="text-sm text-gray-600 mt-1">{item.desc}</p>
+            <h4 className="font-semibold text-text-primary">{item.title}</h4>
+            <p className="text-sm text-text-secondary mt-1">{item.desc}</p>
           </div>
         ))}
       </div>
